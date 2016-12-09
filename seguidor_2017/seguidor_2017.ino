@@ -54,7 +54,7 @@ float porc_i=0;
 float porc_d=0;
 int cuantos_i=0;
 int cuantos_d=0;
-int vel_max=70;
+int vel_max=50;
 int vel_med=9;
 ///////////
 
@@ -126,7 +126,7 @@ void potencia_max(){
 }
 
 void arranca(){
-  motori.setSpeed(180);//velocidad_i de motor izquierdo
+  motori.setSpeed(200);//velocidad_i de motor izquierdo
   motori.run(FORWARD); //polaridad de motor izquierdo
   motord.setSpeed(200);//velocidad de motor derecho          
   motord.run(FORWARD);//polaridad de motor  derecho
