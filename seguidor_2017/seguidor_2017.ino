@@ -40,10 +40,10 @@ int neg=1;
 int bco=0;
 
 //Potencias
-int ade_ordi=200;
-int medioi=200;
-int ade_ordd=200;
-int mediod=200;
+int ade_ordi=180;
+int medioi=150;
+int ade_ordd=180;
+int mediod=150;
 //Velocidades
 int VI=0;
 int VD=0;
@@ -54,8 +54,8 @@ float porc_i=0;
 float porc_d=0;
 int cuantos_i=0;
 int cuantos_d=0;
-int vel_max=50;
-int vel_med=9;
+int vel_max=150;
+int vel_med=150;
 ///////////
 
 
@@ -106,10 +106,10 @@ void potencia_max(){
       }else{
         porc_d=vel_max/cuantos_d;  
       }
-      /*Serial.print("porc_i : ");
-      Serial.println(porc_i);
-      Serial.print("porc_d : ");
-      Serial.println(porc_d);*/
+      //Serial.print("porc_i : ");
+      //Serial.println(porc_i);
+      //Serial.print("porc_d : ");
+      //Serial.println(porc_d);
       cuantos_i=0;
       cuantos_d=0;
       ade_ordi=ade_ordi*porc_i;
@@ -121,10 +121,41 @@ void potencia_max(){
          ade_ordd=250;
       }      
    }
-   
-   Serial.println(reloj);
+   //Serial.println(reloj);
 }
 
+void potencia_med(){
+  //lectura sensor de volicidad
+  reloj++;
+  if (reloj>100){
+      reloj=0;
+      if (cuantos_i==0){
+        porc_i=1.5;
+      }else{
+        porc_i=vel_med/cuantos_i;  
+      }
+      if (cuantos_d==0){
+        porc_d=1.5;
+      }else{
+        porc_d=vel_med/cuantos_d;  
+      }
+      //Serial.print("porc_i : ");
+      //Serial.println(porc_i);
+      //Serial.print("porc_d : ");
+      //Serial.println(porc_d);
+      cuantos_i=0;
+      cuantos_d=0;
+      medioi=medioi*porc_i;
+      mediod=mediod*porc_d;
+      if (ade_ordi>250){
+         medioi=250;
+      }
+      if (ade_ordd>250){
+         mediod=250;
+      }      
+   }
+   //Serial.println(reloj);
+}
 void arranca(){
   motori.setSpeed(200);//velocidad_i de motor izquierdo
   motori.run(FORWARD); //polaridad de motor izquierdo
@@ -162,14 +193,14 @@ void loop() {
         arre=0;
     }*/
 
-   potencia_max();
+   potencia_med();
    Serial.println("____cuantos____________________");
    Serial.println(cuantos_i);
    Serial.println(cuantos_d);
     
    //lectura de sensores bco/ngo
    
-   /*l1=digitalRead(izq_1);
+   l1=digitalRead(izq_1);
    l2=digitalRead(izq_2);
    l3=digitalRead(izq_3);
    l4=digitalRead(izq_centro);
@@ -189,42 +220,91 @@ void loop() {
    Serial.println(l5);
    Serial.println(l6);
    Serial.println(l7);
-   Serial.println(l8);*/
+   Serial.println(l8);
    
    //delay(1000);
 
    //al centro
-   motori.setSpeed(ade_ordi);//velocidad de motor izquierdo
+   /*motori.setSpeed(ade_ordi);//velocidad de motor izquierdo
    motori.run(FORWARD); //polaridad de motor izquierdo
    motord.setSpeed(ade_ordd);//velocidad de motor derecho
    motord.run(FORWARD);//polaridad de motor  derecho
-
-   /*if (l1==bco && l2==bco && l3==bco && l4==bco && l5==bco && l6==bco && l7==bco  && l8==bco){
+   */
+   if (l1==bco && l2==bco && l3==bco && l4==bco && l5==bco && l6==bco && l7==bco  && l8==bco){
+       delay(300);
        alto();
    }else{  
-     if (l1==bco && l2==bco && l3==bco && l4==neg && l5==neg && l6==bco && l7==bco  && l8==bco){ 
+     /*if (l1==bco && l2==bco && l3==bco && l4==neg && l5==neg && l6==bco && l7==bco  && l8==bco){ 
         motori.setSpeed(medioi);//velocidad de motor izquierdo
         motori.run(FORWARD); //polaridad de motor izquierdo
         motord.setSpeed(mediod);//velocidad de motor derecho
         motord.run(FORWARD);//polaridad de motor  derecho
-     } else {
+     } else {*/
          // desviado a la derecha gira acelerando motor derecho
-         if (l1==neg || l2==neg || l3==neg){
+         if (l4==neg){
             //alto();
             motori.setSpeed(medioi);//velocidad de motor izquierdo
-            motori.run(FORWARD); //polaridad de motor izquierdo
-            motord.setSpeed(ade_ordd);//velocidad de motor derecho          
+            motori.run(RELEASE); //polaridad de motor izquierdo
+            motord.setSpeed(mediod);//velocidad de motor derecho          
             motord.run(FORWARD);//polaridad de motor derecho
          } else {
-            // desviado a la izquierda gira acelerando motor izquierdo
-            if (l6==neg || l7==neg || l8==neg){
+            if (l3==neg){
                //alto();
-               motori.setSpeed(ade_ordi);//velocidad de motor izquierdo
-               motori.run(FORWARD); //polaridad de motor izquierdo
+               motori.setSpeed(medioi-10);//velocidad de motor izquierdo
+               motori.run(RELEASE); //polaridad de motor izquierdo
                motord.setSpeed(mediod);//velocidad de motor derecho          
-               motord.run(FORWARD);//polaridad de motor  derecho
-             }
-         }
-      } 
-  }*/
+               motord.run(FORWARD);//polaridad de motor derecho
+            } else {
+              if (l2==neg){
+                  //alto();
+                  motori.setSpeed(medioi-20);//velocidad de motor izquierdo
+                  motori.run(RELEASE); //polaridad de motor izquierdo
+                  motord.setSpeed(mediod);//velocidad de motor derecho          
+                  motord.run(FORWARD);//polaridad de motor derecho
+               } else {
+                  if (l1==neg){
+                     //alto();
+                     motori.setSpeed(medioi-30);//velocidad de motor izquierdo
+                     motori.run(RELEASE); //polaridad de motor izquierdo
+                     motord.setSpeed(mediod);//velocidad de motor derecho          
+                     motord.run(FORWARD);//polaridad de motor derecho
+                  } else {
+                      if (l5==neg){
+                         //alto();
+                         motori.setSpeed(medioi);//velocidad de motor izquierdo
+                         motori.run(FORWARD); //polaridad de motor izquierdo
+                         motord.setSpeed(mediod);//velocidad de motor derecho          
+                         motord.run(RELEASE);//polaridad de motor  derecho
+                      } else {
+                          if (l6==neg){
+                             //alto();
+                             motori.setSpeed(medioi);//velocidad de motor izquierdo
+                             motori.run(FORWARD); //polaridad de motor izquierdo
+                             motord.setSpeed(mediod-10);//velocidad de motor derecho          
+                             motord.run(RELEASE);//polaridad de motor  derecho
+                          } else {
+                             if (l7==neg){
+                                //alto();
+                                motori.setSpeed(medioi);//velocidad de motor izquierdo
+                                motori.run(FORWARD); //polaridad de motor izquierdo
+                                motord.setSpeed(mediod-20);//velocidad de motor derecho          
+                                motord.run(RELEASE);//polaridad de motor  derecho
+                             } else {
+                                if (l5==neg){
+                                   // alto();
+                                    motori.setSpeed(medioi);//velocidad de motor izquierdo
+                                    motori.run(FORWARD); //polaridad de motor izquierdo
+                                    motord.setSpeed(mediod);//velocidad de motor derecho          
+                                    motord.run(RELEASE);//polaridad de motor  derecho
+                                }
+                             }
+                          }
+                      }
+                  }
+               }
+           }
+        }
+   }
 }
+   
+
