@@ -54,7 +54,7 @@ float porc_i=0;
 float porc_d=0;
 int cuantos_i=0;
 int cuantos_d=0;
-int vel_max=50;
+int vel_max=150;
 int vel_med=9;
 ///////////
 
