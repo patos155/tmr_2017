@@ -157,63 +157,64 @@ void loop() {
       motord.run(FORWARD);
    }//curva a la izquierda
    if(l2==neg && l3==bco && l4==bco){
-      motori.setSpeed(0);//110
+      motori.setSpeed(110);//110
       motori.run(BACKWARD);
-      motord.setSpeed(100);//150
+      motord.setSpeed(125);//150
       motord.run(FORWARD);
    }//curva  a la derecha
    if(l2==bco && l3==bco && l4==neg){
-      motori.setSpeed(100);
+      motori.setSpeed(125);
       motori.run(FORWARD);
-      motord.setSpeed(0);
+      motord.setSpeed(110);
       motord.run(BACKWARD);
    }// curva a la izquierda (caso extremo)
    if(l1==neg && l2==bco && l3==bco){
-      motori.setSpeed(0);
+      motori.setSpeed(120);
       motori.run(BACKWARD);
-      motord.setSpeed(110);
+      motord.setSpeed(150);
       motord.run(FORWARD);
    }//curva a la derecha (caso extremo)
    if(l3==bco && l4==bco && l5==neg){
-       motori.setSpeed(110);
+       motori.setSpeed(150);
        motori.run(FORWARD);
-       motord.setSpeed(0);
+       motord.setSpeed(120);
        motord.run(BACKWARD);        
    }//curva a la izquierda (caso especifico)
    if(l1==neg && l2==neg && l3==bco){
-       motori.setSpeed(0);
+       motori.setSpeed(110);
        motori.run(BACKWARD);
-       motord.setSpeed(110);
+       motord.setSpeed(125);
        motord.run(FORWARD);
    }//curva a la derecha (caso especifico)
    if(l3==bco && l4==neg && l5==neg){
-      motori.setSpeed(110);
+      motori.setSpeed(125);
       motori.run(FORWARD);
-      motord.setSpeed(0);
+      motord.setSpeed(110);
       motord.run(BACKWARD);
    }//curva a izquierda (caso especifico)
    if(l1==neg && l2==neg && l3==neg){
-      motori.setSpeed(150);
+      motori.setSpeed(110);
       motori.run(BACKWARD);
-      motord.setSpeed(180);
+      motord.setSpeed(125);
       motord.run(FORWARD);
    }//curva a la derecha(caso especifico)
    if(l3==neg && l4==neg && l5==neg){
-      motori.setSpeed(180);
+      motori.setSpeed(125);
       motori.run(FORWARD);
-      motord.setSpeed(150);
+      motord.setSpeed(110);
       motord.run(BACKWARD);
    }      
    //detiene en interseccion
-   suma=l1+l2+l3+l4+l5;
-   if(suma<=2){
+   suma=l1+l2+l4+l5;
+   if(suma<2){
       motori.setSpeed(0);
       motori.run(FORWARD);
       motord.setSpeed(0);
       motord.run(FORWARD);
       delay(200);
+   }
       // derecho verde (vuelta a la derecha)(1==izquierda && 2==derecha)
-      color();
+/*      color();
       if(enc_bco_1==1 && enc_vde_2==1) {
            motori.setSpeed(150);
            motori.run(FORWARD);
@@ -233,7 +234,7 @@ void loop() {
            motord.setSpeed(100);
            motord.run(FORWARD);
       }
-   }
+   }*/
    //rodear un objeto
    ultra();
    if(cm<=5){
@@ -264,9 +265,9 @@ void loop() {
       motord.run(BACKWARD);
       delay(300);
    }
-}
+//}
    
-void color() {
+/*void color() {
   // color en sensor 1 Izquierdo
   enc_bco_1 = 0;
   enc_vde_1 = 0;
@@ -306,7 +307,7 @@ void color() {
   digitalWrite(s2_2, HIGH);
   //count OUT_2, pGreen, GREEN
   green2 = pulseIn(out_2, digitalRead(out_2) == HIGH ? LOW : HIGH);
- // Serial.println("Sensor Izquierdo");
+ // Serial.println("Sensor Izquierdo");*/
 /*
   // muestra la intensidad (los milisegunods que tardo en la lectura para el rojo
   Serial.print("R1 Intensity:");
