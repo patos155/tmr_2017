@@ -49,13 +49,13 @@ int blue1 = 0;
 int red2 = 0;  
 int green2 = 0;  
 int blue2 = 0;  
-int des = 1;
+int des = 3;
 
 // lectura de colores encontrados en sensor 1
 
-int ler_vde_1=7;
-int leg_vde_1=6;
-int leb_vde_1=5;
+int ler_vde_1=10;
+int leg_vde_1=11;
+int leb_vde_1=9;
 
 
 // lectura de colores encontrados en sensor 2
@@ -141,7 +141,7 @@ void setup() {
   //digitalWrite(trigPin, LOW); // Pone el pin a un estado logico bajo
 }
   void loop() { 
-   // muestra la intensidad (los milisegunods que tardo en la lectura para el rojo
+   /*// muestra la intensidad (los milisegunods que tardo en la lectura para el rojo
   Serial.print("R1 Intensity:");  
   Serial.println(red1, DEC);  
   // muestra la intensidad (los milisegunods que tardo en la lectura para el verde
@@ -175,7 +175,8 @@ void setup() {
      }
      Serial.println("_______________________________________");
 
-  delay(1000);
+  delay(1000);*/
+       
    l5=digitalRead(izq_1);
    l4=digitalRead(izq_2);
    l3=digitalRead(centro_3);
@@ -219,9 +220,6 @@ if (l4==neg && l1==bco && l5==bco ){
      // INTERSECCION////////////////////////////////////////////////////////////////////////////
  if(l1==neg && l5==neg)
   {
-       enc_vde_1=0;
-       enc_vde_2=0;
-       color();
       
        motor_derecho.setSpeed(100);
        motor_derecho.run(BACKWARD);
@@ -232,18 +230,32 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(BACKWARD);
-       delay(500);
-       //sensor RGB de la derecha 
-      if(enc_vde_1==1)
-      {
+       delay(1000);
+       
        enc_vde_1=0;
        enc_vde_2=0;
        color();
-      
+      delay(5);
+      color();
+      delay(5);
+
+       color();
+      delay(5);
+
+       color();
+      delay(5);
+
+       color();
+      delay(5);
+       
+       //sensor RGB de la derecha 
+      if(enc_vde_1==1)
+      {
        motor_derecho.setSpeed(220);
        motor_derecho.run(BACKWARD);
        motor_izquierdo.setSpeed(200);
        motor_izquierdo.run(FORWARD);
+       delay(1000);
       }
 
 //sensor RGB a la izquierda
@@ -253,6 +265,7 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(220);
        motor_izquierdo.run(BACKWARD);
+       delay(1000);
       }
 }
   }
