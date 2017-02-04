@@ -683,6 +683,7 @@ long microsecondsToInches(long microseconds) {
     return microseconds/148;
 }
 // Calcula la distancia en cm
+
 long microsecondsToCentimeters(long microseconds) {
     return microseconds/58;
 } 
