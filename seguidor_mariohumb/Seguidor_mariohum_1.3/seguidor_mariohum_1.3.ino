@@ -299,7 +299,7 @@ if (l4==neg && l1==bco && l5==bco ){
        temp=0;
          temp1=0;
       }
-      if (temp==5){
+      /*if (temp==5){
         motor_derecho.setSpeed(200);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(200);
@@ -309,86 +309,135 @@ if (l4==neg && l1==bco && l5==bco ){
         temp1=0;
           
       }
+      */
     temp1=0;  
 }
 
-if(temp1==1000){
+if(temp1==900){
   ultra();
-
-  if(distancia<=8 && distancia!=0){
+ if(distancia<=8 && distancia>5){
         motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-        motor_derecho.setSpeed(200);
+        motor_derecho.setSpeed(100);
        motor_derecho.run(BACKWARD);
-       motor_izquierdo.setSpeed(200);
-       motor_izquierdo.run(BACKWARD);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(FORWARD);
+       delay(650);
+       motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
        delay(100);
-       motor_derecho.setSpeed(200);
-       motor_derecho.run(RELEASE);
-       motor_izquierdo.setSpeed(200);
-       motor_izquierdo.run(RELEASE);
-       delay(10);
-       motor_derecho.setSpeed(200);
-       motor_derecho.run(RELEASE);
-       motor_izquierdo.setSpeed(200);
-       motor_izquierdo.run(FORWARD);
-       delay(500);
-       motor_derecho.setSpeed(200);
-       motor_derecho.run(RELEASE);
-       motor_izquierdo.setSpeed(200);
-       motor_izquierdo.run(RELEASE);
-       delay(10);
-       motor_derecho.setSpeed(200);
+        motor_derecho.setSpeed(100);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(200);
+       motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(FORWARD);
-       delay(800);
-           motor_derecho.setSpeed(200);
+       delay(1100);
+        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
-       motor_izquierdo.setSpeed(200);
+       motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
-       delay(10);
-       motor_derecho.setSpeed(200);
+       delay(100);
+       motor_derecho.setSpeed(100);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(150);
+       motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(BACKWARD);
-       delay(500);
-          motor_derecho.setSpeed(200);
+       delay(550);
+       motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
-       motor_izquierdo.setSpeed(200);
+       motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
-       delay(10);
-       motor_derecho.setSpeed(200);
+       delay(100);
+       motor_derecho.setSpeed(100);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(200);
+       motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(FORWARD);
-       delay(600);
-                  motor_derecho.setSpeed(200);
+       delay(1700);
+       motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
-       motor_izquierdo.setSpeed(200);
+       motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
-       delay(10);
-       motor_derecho.setSpeed(200);
+       delay(100);
+        motor_derecho.setSpeed(100);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(200);
-       motor_izquierdo.run(RELEASE);
-       delay(350);
-                 motor_derecho.setSpeed(200);
-       motor_derecho.run(RELEASE);
-       motor_izquierdo.setSpeed(200);
-       motor_izquierdo.run(RELEASE);
-       delay(10);
-       motor_derecho.setSpeed(200);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(BACKWARD);
+       delay(550);
+        motor_derecho.setSpeed(100);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(200);
+       motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(FORWARD);
-      delay(50);
+       delay(1100);
+     
+       
+      
+      
        
   }
- if(temp1>1020){
+  if(distancia<=5 && distancia!=0){
+        motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+        motor_derecho.setSpeed(100);
+       motor_derecho.run(BACKWARD);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(FORWARD);
+       delay(650);
+       motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+        motor_derecho.setSpeed(100);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(FORWARD);
+       delay(1100);
+        motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+       motor_derecho.setSpeed(100);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(BACKWARD);
+       delay(550);
+       motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+       motor_derecho.setSpeed(100);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(FORWARD);
+       delay(1500);
+       motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+        motor_derecho.setSpeed(100);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(BACKWARD);
+       delay(550);
+       motor_derecho.setSpeed(100);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(FORWARD);
+       delay(1100);
+   
+      
+       
+  }
+ if(temp1>1050){
       temp1=0;
   }
   
