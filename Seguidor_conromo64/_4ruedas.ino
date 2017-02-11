@@ -336,13 +336,13 @@ void loop() {
       ultra();
       dire="C1";
       dataFile.print(",C1.");
-      motori_D.setSpeed(ade_ordi+20);//velocidad de motor izquierdo
+      motori_D.setSpeed(ade_ordi+30);//velocidad de motor izquierdo
       motori_D.run(FORWARD); //polaridad de motor izquierdo
-      motord_D.setSpeed(ade_ordd+20);//velocidad de motor derecho
+      motord_D.setSpeed(ade_ordd+30);//velocidad de motor derecho
       motord_D.run(FORWARD);//polaridad de motor  derecho
-      motori_T.setSpeed(ade_ordi+20);//velocidad de motor izquierdo
+      motori_T.setSpeed(ade_ordi+30);//velocidad de motor izquierdo
       motori_T.run(FORWARD); //polaridad de motor izquierdo
-      motord_T.setSpeed(ade_ordd+20);//velocidad de motor derecho
+      motord_T.setSpeed(ade_ordd+30);//velocidad de motor derecho
       motord_T.run(FORWARD);//polaridad de motor  derecho
       dataFile.println(cm);
    } 
@@ -375,11 +375,11 @@ void loop() {
    if (((l1==neg || l2==neg) && (l3==bco && l4==bco && l5==bco && l6==bco && l7==bco  && l8==bco)) || (sum_izq>2 && sum_der<2)) {
       dire="C4";
       dataFile.print(",C4.");
-      motori_D.setSpeed(medioi+(dife*2));//velocidad de motor izquierdo
+      motori_D.setSpeed(medioi+(dife*4));//velocidad de motor izquierdo
       motori_D.run(BACKWARD); //polaridad de motor izquierdo
       motord_D.setSpeed(ade_ordd+(dife*2));//velocidad de motor derecho
       motord_D.run(FORWARD);//polaridad de motor  derecho
-      motori_T.setSpeed(medioi+(dife*2));//velocidad de motor izquierdo
+      motori_T.setSpeed(medioi+(dife*4));//velocidad de motor izquierdo
       motori_T.run(BACKWARD); //polaridad de motor izquierdo
       motord_T.setSpeed(ade_ordd+(dife*2));//velocidad de motor derecho
       motord_T.run(FORWARD);//polaridad de motor  derecho
@@ -414,11 +414,11 @@ void loop() {
       dataFile.print(",C7.");
       motori_D.setSpeed(ade_ordi+(dife*2));//velocidad de motor izquierdo
       motori_D.run(FORWARD); //polaridad de motor izquierdo
-      motord_D.setSpeed(mediod+(dife*2)+20);//velocidad de motor derecho
+      motord_D.setSpeed(mediod+(dife*3)+20);//velocidad de motor derecho
       motord_D.run(BACKWARD);//polaridad de motor  derecho
       motori_T.setSpeed(ade_ordi+(dife*2));//velocidad de motor izquierdo
       motori_T.run(FORWARD); //polaridad de motor izquierdo
-      motord_T.setSpeed(mediod+(dife*2)+20);//velocidad de motor derecho
+      motord_T.setSpeed(mediod+(dife*3)+20);//velocidad de motor derecho
       motord_T.run(BACKWARD);//polaridad de motor  derecho
       //delay(300);
    } 
@@ -594,7 +594,7 @@ void loop() {
       motori_T.run(FORWARD);
       motord_T.setSpeed(100);
       motord_T.run(FORWARD);
-      delay(2300);
+      delay(3000);
       // <<--- izquierda
       motori_D.setSpeed(160);
       motori_D.run(BACKWARD);
