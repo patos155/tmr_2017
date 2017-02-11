@@ -60,14 +60,14 @@ int blue2 = 0;
 int des = 10;
 
 // lectura de colores encontrados en sensor 1
-int ler_vde_1=30;
-int leg_vde_1=25;
-int leb_vde_1=30;
+int ler_vde_1=55;
+int leg_vde_1=45;
+int leb_vde_1=40;
 
 // lectura de colores encontrados en sensor 2
-int ler_vde_2=30;
-int leg_vde_2=25;
-int leb_vde_2=30;
+int ler_vde_2=45;
+int leg_vde_2=35;
+int leb_vde_2=35;
 
 // colores encontrados en sensor 1
 int enc_vde_1=0;
