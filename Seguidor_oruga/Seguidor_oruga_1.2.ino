@@ -341,7 +341,6 @@ void color() {
   // muestra la intensidad (los milisegunods que tardo en la lectura para el blue
   Serial.print(" B1 Intensity : ");
   Serial.println(blue1, DEC);
-
   Serial.println("Sensor Derecho");
   // muestra la intensidad (los milisegunods que tardo en la lectura para el rojo
   Serial.print("R2 Intensity:");
