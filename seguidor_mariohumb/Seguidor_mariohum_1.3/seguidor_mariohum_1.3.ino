@@ -48,19 +48,19 @@ int blue1 = 0;
 int red2 = 0;  
 int green2 = 0;  
 int blue2 = 0;  
-int des = 2;
+int des = 3;
 
 // lectura de colores encontrados en sensor 1
 
-int ler_vde_1=8;
-int leg_vde_1=8;
-int leb_vde_1=8;
+int ler_vde_1=38;
+int leg_vde_1=29;
+int leb_vde_1=29;
 
 
 // lectura de colores encontrados en sensor 2
-int ler_vde_2=8;
-int leg_vde_2=8;
-int leb_vde_2=8;
+int ler_vde_2=29;
+int leg_vde_2=27;
+int leb_vde_2=28;
 
 // colores encontrados en sensor 1
 int enc_vde_1=0;
@@ -186,8 +186,9 @@ void setup() {
      }
      Serial.println("_______________________________________");
   delay(1000);
-        
-       */
+ */
+   
+       
    l5=digitalRead(izq_1);
    l4=digitalRead(izq_2);
    l3=digitalRead(centro_3);
@@ -254,25 +255,10 @@ if (l4==neg && l1==bco && l5==bco ){
        enc_vde_2=0;
 //SE APLICAN 10 VECES LAS LECTURAS
        color();
-      delay(5);
-      color();
-      delay(5);
-       color();
-      delay(5);
-       color();
-      delay(5);
-       color();
-      delay(5);
-       color();
-      delay(5);
-      color();
-      delay(5);
-       color();
-      delay(5);
-       color();
-      delay(5);
-       color();
-      delay(5);
+      delay(50);
+      
+      
+
        //sensor RGB de la derecha
        temp=temp+1; 
       if(enc_vde_1==1)
@@ -370,7 +356,19 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(FORWARD);
-       delay(1100);
+       delay(1000);
+            motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+          motor_derecho.setSpeed(100);
+       motor_derecho.run(BACKWARD);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(FORWARD);
+       delay(650);
+   
+         temp1=-25;
      
        
       
@@ -432,12 +430,22 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(FORWARD);
-       delay(1100);
+       delay(1000);
+              motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+          motor_derecho.setSpeed(100);
+       motor_derecho.run(BACKWARD);
+       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.run(FORWARD);
+       delay(650);
    
       
-       
+         temp1=-25;
   }
- if(temp1>1050){
+ if(temp1>1000){
       temp1=0;
   }
   
