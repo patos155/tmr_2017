@@ -46,21 +46,18 @@ int blue1 = 0;
     
 // Variables  sensor 2
 int red2 = 0;  
-int green2 = 0;  
+int green2 = 0;   
 int blue2 = 0;  
 int des = 3;
 
-// lectura de colores encontrados en sensor 1
-
-int ler_vde_1=38;
-int leg_vde_1=29;
-int leb_vde_1=29;
-
-
-// lectura de colores encontrados en sensor 2
-int ler_vde_2=29;
-int leg_vde_2=27;
-int leb_vde_2=28;
+// lectura de colores encontrados en sensor 1 izquierdo
+int ler_vde_1=15;
+int leg_vde_1=15;
+int leb_vde_1=15;
+// lectura de colores encontrados en sensor 2 derecho
+int ler_vde_2=16;
+int leg_vde_2=16;
+int leb_vde_2=16;                                                                            
 
 // colores encontrados en sensor 1
 int enc_vde_1=0;
@@ -254,8 +251,17 @@ if (l4==neg && l1==bco && l5==bco ){
        enc_vde_1=0;
        enc_vde_2=0;
 //SE APLICAN 10 VECES LAS LECTURAS
-       color();
+      color();
       delay(50);
+      color();
+      delay(50);
+      color();
+      delay(50);
+      color();
+      delay(50);
+      color();
+      delay(50);
+      
       
       
 
