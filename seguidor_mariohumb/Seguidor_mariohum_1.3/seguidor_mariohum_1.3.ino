@@ -51,13 +51,13 @@ int blue2 = 0;
 int des = 3;
 
 // lectura de colores encontrados en sensor 1 izquierdo
-int ler_vde_1=15;
-int leg_vde_1=15;
-int leb_vde_1=15;
+int ler_vde_1=13;
+int leg_vde_1=13;
+int leb_vde_1=13;
 // lectura de colores encontrados en sensor 2 derecho
-int ler_vde_2=16;
-int leg_vde_2=16;
-int leb_vde_2=16;                                                                            
+int ler_vde_2=13;
+int leg_vde_2=13;
+int leb_vde_2=13;                                                                            
 
 // colores encontrados en sensor 1
 int enc_vde_1=0;
@@ -183,8 +183,8 @@ void setup() {
      }
      Serial.println("_______________________________________");
   delay(1000);
- */
-   
+ 
+   */
        
    l5=digitalRead(izq_1);
    l4=digitalRead(izq_2);
