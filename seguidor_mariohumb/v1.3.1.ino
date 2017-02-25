@@ -51,13 +51,13 @@ int blue2 = 0;
 int des = 3;
 
 // lectura de colores encontrados en sensor 1 izquierdo
-int ler_vde_1=13;
+int ler_vde_1=11;
 int leg_vde_1=13;
-int leb_vde_1=13;
+int leb_vde_1=9;
 // lectura de colores encontrados en sensor 2 derecho
-int ler_vde_2=13;
+int ler_vde_2=11;
 int leg_vde_2=13;
-int leb_vde_2=13;                                                                            
+int leb_vde_2=9;                                                                      
 
 // colores encontrados en sensor 1
 int enc_vde_1=0;
@@ -147,10 +147,10 @@ void setup() {
 
 }
   void loop() { 
-  /*
+  
        enc_vde_1=0;
        enc_vde_2=0;
-//SE APLICAN 10 VECES LAS LECTURAS
+/*//SE APLICAN 10 VECES LAS LECTURAS
        color();
    // muestra la intensidad (los milisegunods que tardo en la lectura para el rojo
   Serial.print("R1 Intensity:");  
@@ -191,17 +191,51 @@ void setup() {
    l3=digitalRead(centro_3);
    l2=digitalRead(der_4);
    l1=digitalRead(der_5);
-   //muy desviadoa la derecha 
+
+
+
+    //CASOS ESPECIALES &%&%&%&%&%&%&%&%%&%&%&%&%&%&%&%&%&%&%&%&%&%&%&%&%&%&%&%&%%&%&%&%&%&%&%6
+   if (l2==neg && l4==neg){
+       motor_derecho.setSpeed(250); //100
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(250);// 100
+       motor_izquierdo.run(FORWARD);
+         temp1=temp1+1;
+   }
+   if (l1==neg && l4==neg){
+       motor_derecho.setSpeed(250); //100
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(250);// 100
+       motor_izquierdo.run(FORWARD);
+         temp1=temp1+1;
+   }
+   //muy desviadoa la izquierda  
  if(l5==neg ){   
        motor_derecho.setSpeed(250);
        motor_derecho.run(BACKWARD);
-       motor_izquierdo.setSpeed(210);
+       motor_izquierdo.setSpeed(250);//210
+       motor_izquierdo.run(FORWARD);
+       temp1=-50;
+  }
+  //muy desviado a la derecha  
+   if(l1==neg ){
+        motor_derecho.setSpeed(250);//210
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(BACKWARD);
+       temp1=-50;
+  }
+  //muy desviadoa la derecha 
+ if(l4==neg ){   
+       motor_derecho.setSpeed(250);
+       motor_derecho.run(BACKWARD);
+       motor_izquierdo.setSpeed(250);//210
        motor_izquierdo.run(FORWARD);
        temp1=-50;
   }
   //muy desviado a la izquierda 
-   if(l1==neg ){
-        motor_derecho.setSpeed(210);
+   if(l2==neg ){
+        motor_derecho.setSpeed(250);//210
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(BACKWARD);
@@ -209,26 +243,26 @@ void setup() {
   }
   //CENTRADO |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 if((l1==bco && l2==bco && l4==bco && l5==bco)){ 
-       motor_derecho.setSpeed(150); //100
+       motor_derecho.setSpeed(250); //100
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(150);// 100
+       motor_izquierdo.setSpeed(250);// 100
        motor_izquierdo.run(FORWARD);
          temp1=temp1+1;
     
 }
    //LIGERAMENTE DESVIADO A LA IZQUIERDA 
 if (l2==neg && l5==bco && l1==bco ){
-       motor_derecho.setSpeed(160);//150
+       motor_derecho.setSpeed(200);//150
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(30);//20
+       motor_izquierdo.setSpeed(80);//20
        motor_izquierdo.run(BACKWARD);
        temp1=-25;
 }
 //LIGERAMENTE DESVIADO A LA DERECHA 
 if (l4==neg && l1==bco && l5==bco ){
-       motor_derecho.setSpeed(30); //20
+       motor_derecho.setSpeed(80); //20
        motor_derecho.run(BACKWARD);
-       motor_izquierdo.setSpeed(160); //150
+       motor_izquierdo.setSpeed(200); //150
        motor_izquierdo.run(FORWARD);
        temp1=-25;
      }
@@ -237,13 +271,12 @@ if (l4==neg && l1==bco && l5==bco ){
      // INTERSECCION////////////////////////////////////////////////////////////////////////////
  if(l1==neg && l5==neg)
   {
-
-      temp1=0;
+       temp1=0;
        motor_derecho.setSpeed(100);
        motor_derecho.run(BACKWARD);
        motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(BACKWARD);
-        delay(290);
+       delay(600);
        motor_derecho.setSpeed(0);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(0);
@@ -263,20 +296,27 @@ if (l4==neg && l1==bco && l5==bco ){
       delay(50);
       color();
       delay(50);
-      
-      
-      
-
+      color();
+      delay(50);
+      color();
+      delay(50);
+      color();
+      delay(50);
+      color();
+      delay(50);
+      color();
+      delay(50);
+      color();
+      delay(50);
        //sensor RGB de la derecha
        temp=temp+1; 
       if(enc_vde_1==1)
       {
-    
-          motor_derecho.setSpeed(50);
+       motor_derecho.setSpeed(50);
        motor_derecho.run(BACKWARD);
        motor_izquierdo.setSpeed(200);
        motor_izquierdo.run(FORWARD);
-       delay(500);
+       delay(1000);
        temp=0;
        temp1=0;
       }
@@ -284,14 +324,21 @@ if (l4==neg && l1==bco && l5==bco ){
 //sensor RGB a la izquierda
       if(enc_vde_2==1)
       {
-
-          motor_derecho.setSpeed(200);
+       motor_derecho.setSpeed(200);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(50);
        motor_izquierdo.run(BACKWARD);
-       delay(500);
+       delay(100078);
        temp=0;
          temp1=0;
+      }
+      if (enc_vde_1==1 && enc_vde_2==1){
+       motor_derecho.setSpeed(250);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(BACKWARD);
+       delay(1000);
+       temp=0;
       }
       /*if (temp==5){
         motor_derecho.setSpeed(200);
@@ -310,69 +357,88 @@ if (l4==neg && l1==bco && l5==bco ){
 if(temp1==900){
   ultra();
  if(distancia<=8 && distancia>5){
-        motor_derecho.setSpeed(0);
+       //SE DETIENE 
+       motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-        motor_derecho.setSpeed(100);
+       //SE INCLINA A LA DERECHA 
+       motor_derecho.setSpeed(250);
        motor_derecho.run(BACKWARD);
-       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
        delay(650);
+       //se detiene 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-        motor_derecho.setSpeed(100);
+       //AVANZA //////////////////////////////////////////////////////7
+        motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(1100);
+       delay(2500);
+       //SE DETIENE 
         motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-       motor_derecho.setSpeed(100);
+       //GIRA A LA IZQUIERDA 
+       motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(BACKWARD);
        delay(550);
+       //SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-       motor_derecho.setSpeed(100);
+       // AVANZA 
+       motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(1700);
+       delay(2200);
+       // SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-        motor_derecho.setSpeed(100);
+       // GIRA A LA DERECHA 
+        motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(BACKWARD);
        delay(550);
-        motor_derecho.setSpeed(100);
-       motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(100);
-       motor_izquierdo.run(FORWARD);
-       delay(1000);
-            motor_derecho.setSpeed(0);
+       // SE DETIENE 
+       motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-          motor_derecho.setSpeed(100);
+       //AVANZA 
+        motor_derecho.setSpeed(250);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(FORWARD);
+       delay(2000);
+       //SE DETIENE 
+       motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+       // INCORPORA LA LINIA 
+       motor_derecho.setSpeed(250);
        motor_derecho.run(BACKWARD);
-       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
        delay(650);
    
@@ -384,71 +450,92 @@ if(temp1==900){
        
   }
   if(distancia<=5 && distancia!=0){
+        //SE DETIENE 
+       motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+       //SE INCLINA A LA DERECHA 
+       motor_derecho.setSpeed(250);
+       motor_derecho.run(BACKWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(FORWARD);
+       delay(650);
+       //se detiene 
+       motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+       //AVANZA ////////////////////////////////////////////////////////
+        motor_derecho.setSpeed(250);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(FORWARD);
+       delay(2500);
+       //SE DETIENE 
         motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-        motor_derecho.setSpeed(100);
-       motor_derecho.run(BACKWARD);
-       motor_izquierdo.setSpeed(100);
-       motor_izquierdo.run(FORWARD);
-       delay(650);
+       //GIRA A LA IZQUIERDA 
+       motor_derecho.setSpeed(250);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(BACKWARD);
+       delay(550);
+       //SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-        motor_derecho.setSpeed(100);
+       // AVANZA 
+       motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(1100);
-        motor_derecho.setSpeed(0);
+       delay(2000);
+       // SE DETIENE 
+       motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-       motor_derecho.setSpeed(100);
+       // GIRA A LA DERECHA 
+        motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(BACKWARD);
        delay(550);
+       // SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-       motor_derecho.setSpeed(100);
+       //AVANZA 
+        motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(1500);
+       delay(2000);
+       //SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(RELEASE);
        delay(100);
-        motor_derecho.setSpeed(100);
-       motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(100);
-       motor_izquierdo.run(BACKWARD);
-       delay(550);
-       motor_derecho.setSpeed(100);
-       motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(100);
-       motor_izquierdo.run(FORWARD);
-       delay(1000);
-              motor_derecho.setSpeed(0);
-       motor_derecho.run(RELEASE);
-       motor_izquierdo.setSpeed(0);
-       motor_izquierdo.run(RELEASE);
-       delay(100);
-          motor_derecho.setSpeed(100);
+       // INCORPORA LA LINIA 
+       motor_derecho.setSpeed(250);
        motor_derecho.run(BACKWARD);
-       motor_izquierdo.setSpeed(100);
+       motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
        delay(650);
+   
+  
    
       
          temp1=-25;
