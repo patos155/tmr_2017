@@ -49,9 +49,13 @@ AF_DCMotor motord_T(3);   //motor izquierdo
        int medioi=100;
        int ade_ordd=200;
        int mediod=100;
-       int t_giro=2100;
+       int t_giro=1800;
     //Control de ultimo giro 
        String ul_giro="FR"; 
+    // espara para los giros
+       int ine=1000;
+       int esp_giro=1500;
+       
 
 void setup() {
    //Puerto serial 
@@ -88,6 +92,20 @@ void setup() {
 }
 
 
+
+void avanza(){
+     long dif_cm=cm_R-cm_L;
+     motori_D.setSpeed(ade_ordi-(dif_cm*7));  //velocidad de motor izquierdo
+     motori_D.run(FORWARD);        //polaridad de motor izquierdo
+     motord_D.setSpeed(ade_ordd+(dif_cm*7));  //velocidad de motor derecho
+     motord_D.run(FORWARD);        //polaridad de motor  derecho
+     motori_T.setSpeed(ade_ordi-(dif_cm*7));  //velocidad de motor izquierdo
+     motori_T.run(FORWARD);        //polaridad de motor izquierdo
+     motord_T.setSpeed(ade_ordd+(dif_cm*7));  //velocidad de motor derecho
+     motord_T.run(FORWARD);        //polaridad de motor  derecho
+ }
+
+
 void avanza_l(){
      motori_D.setSpeed(ade_ordi);  //velocidad de motor izquierdo
      motori_D.run(FORWARD);        //polaridad de motor izquierdo
@@ -99,8 +117,7 @@ void avanza_l(){
      motord_T.run(FORWARD);        //polaridad de motor  derecho
  }
 void giro_u(){
-
-      motori_D.setSpeed(ade_ordi);//velocidad de motor izquierdo
+     motori_D.setSpeed(ade_ordi);//velocidad de motor izquierdo
      motori_D.run(BACKWARD); //polaridad de motor izquierdo
      motord_D.setSpeed(ade_ordd);//velocidad de motor derecho
      motord_D.run(FORWARD);//polaridad de motor  derecho
@@ -111,20 +128,6 @@ void giro_u(){
      delay(7000);
 }
 
-
-
-
-void avanza(){
-     long dif_cm=cm_R-cm_L;
-     motori_D.setSpeed(ade_ordi-(dif_cm*10));  //velocidad de motor izquierdo
-     motori_D.run(FORWARD);        //polaridad de motor izquierdo
-     motord_D.setSpeed(ade_ordd-(dif_cm*10));  //velocidad de motor derecho
-     motord_D.run(FORWARD);        //polaridad de motor  derecho
-     motori_T.setSpeed(ade_ordi+(dif_cm*10));  //velocidad de motor izquierdo
-     motori_T.run(FORWARD);        //polaridad de motor izquierdo
-     motord_T.setSpeed(ade_ordd+(dif_cm*10));  //velocidad de motor derecho
-     motord_T.run(FORWARD);        //polaridad de motor  derecho
- }
 
  void v_izquierda(){
      //gira izquierda
@@ -146,7 +149,7 @@ void avanza(){
      motori_T.run(FORWARD);        //polaridad de motor izquierdo
      motord_T.setSpeed(ade_ordd);  //velocidad de motor derecho
      motord_T.run(FORWARD);        //polaridad de motor  derecho
-     delay(1000);
+     delay(esp_giro);
  }
 
  void v_derecha(){
@@ -169,7 +172,7 @@ void avanza(){
      motori_T.run(FORWARD);        //polaridad de motor izquierdo
      motord_T.setSpeed(ade_ordd);  //velocidad de motor derecho
      motord_T.run(FORWARD);        //polaridad de motor  derecho
-     delay(1000);
+     delay(esp_giro);
  }
 
 void alto(){
@@ -230,10 +233,10 @@ void loop() {
    }else {
        izquierda=1;
    }
-   if (cm_A<d_enc) {
-       izquierda=0;
+   if (cm_A<d_fte) {
+       atras=0;
    }else {
-       izquierda=1;
+       atras=1;
    }
    
    Serial.println(millis());
@@ -274,54 +277,60 @@ void loop() {
       dataFile.print(" - ");
       dataFile.println(izquierda);
    }
-   atras=1;
+
+    // pared frontal 
+   if ((adelante==0)){
+       alto();
+       dataFile.println("alto");
+   } 
    // Campo abierto avanza de frente 
    if ((adelante==1) && (atras==1) && (derecha==1) && (izquierda==1)){
        avanza_l();
+       dataFile.println("avanza_l");
    }
    //antre dos paredes avanza de frente
-      if ((adelante==1) && (atras==1) && (derecha==0) && (izquierda==0)){
-       avanza_l();
-         /*if(cm_L<6){
-           motori_D.setSpeed(ade_ordi);//velocidad de motor izquierdo
-           motori_D.run(FORWARD); //polaridad de motor izquierdo
-           motord_D.setSpeed(ade_ordd);//velocidad de motor derecho
-           motord_D.run(BACKWARD);//polaridad de motor  derecho
-           motori_T.setSpeed(ade_ordi);//velocidad de motor izquierdo
-           motori_T.run(FORWARD); //polaridad de motor izquierdo
-           motord_T.setSpeed(ade_ordd);//velocidad de motor derecho
-           motord_T.run(BACKWARD);//polaridad de motor  derecho
-         }
-         if(cm_R<6){
-           motori_D.setSpeed(ade_ordi);//velocidad de motor izquierdo
-           motori_D.run(BACKWARD); //polaridad de motor izquierdo
-           motord_D.setSpeed(ade_ordd);//velocidad de motor derecho
-           motord_D.run(FORWARD);//polaridad de motor  derecho
-           motori_T.setSpeed(ade_ordi);//velocidad de motor izquierdo
-           motori_T.run(BACKWARD); //polaridad de motor izquierdo
-           motord_T.setSpeed(ade_ordd);//velocidad de motor derecho
-           motord_T.run(FORWARD);//polaridad de motor  derecho
-         }*/
+   if ((adelante==1) && (atras==1)  && (izquierda==0) && (derecha==0)){
+       avanza();
+       dataFile.println("avanza_l");
    }
    //Pared izquierda gira a la derecha
-   if ((adelante==0) && (atras==1) && (derecha==1) && (izquierda==0)){
+   if ((adelante==0) && (atras==1)  && (izquierda==0) && (derecha==1)){
        v_derecha();
        ul_giro="DE";
+       dataFile.println("derecha");
+   }
+   //Pared izquierda gira a la derecha
+   if ((adelante==1) && (atras==1)  && (izquierda==0) && (derecha==1)){
+       delay(ine);
+       v_derecha();
+       ul_giro="DE";
+       dataFile.println("derecha");
    }
    //Pared derecha gira a la izquierda
-   if ((adelante==0) && (atras==1) && (derecha==0) && (izquierda==1)){
+   if ((adelante==0) && (atras==1) && (izquierda==1) && (derecha==0) ){
        v_izquierda();
        ul_giro="IZ";
+       dataFile.println("izquierda");
+   }
+
+     //Pared derecha gira a la izquierda
+   if ((adelante==1) && (atras==1) && (izquierda==1) && (derecha==0) ){
+       delay(ine);
+       v_izquierda();
+       ul_giro="IZ";
+       dataFile.println("izquierda");
    }
 
    //Pared derecha gira a la izquierda
-   if ((adelante==0) && (atras==1) && (derecha==1) && (izquierda==1)){
+   if ((adelante==0) && (atras==1) && (izquierda==1) && (derecha==1) ){
        if (ul_giro="DE"){
           v_izquierda();
           ul_giro="IZ";
+          dataFile.println("izquierda");
        }else{ 
           v_derecha();
           ul_giro="DE";
+          dataFile.println("derecha");
        }
    }
    
@@ -330,9 +339,8 @@ void loop() {
     giro_u();
    }
 
-   
-   //algoritmo para centrar
-   if(cm_L<5){
+      //algoritmo para centrar
+   /*if(cm_L<5){
            motori_D.setSpeed(ade_ordi);//velocidad de motor izquierdo
            motori_D.run(FORWARD); //polaridad de motor izquierdo
            motord_D.setSpeed(ade_ordd);//velocidad de motor derecho
@@ -371,7 +379,7 @@ void loop() {
              motord_T.setSpeed(ade_ordd);  //velocidad de motor derecho
              motord_T.run(FORWARD);        //polaridad de motor  derecho
           delay(200);
-         }
+         }*/
     
    
    
