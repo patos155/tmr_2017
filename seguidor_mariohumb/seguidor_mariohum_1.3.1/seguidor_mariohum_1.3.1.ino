@@ -22,7 +22,7 @@ Color Sensor2 (izquierdo)     Arduino
  s1                47
  s2                51
  s3                49
- OUT               53
+ OUT               52
 */
 //VARIABLES DEL SENSOR DE COLORES 
 // inicializacion de variables para los pins de sensor 1 
@@ -37,7 +37,7 @@ const int s2_0 = 45;
 const int s2_1 = 47;  
 const int s2_2 = 51;  
 const int s2_3 = 49;  
-const int out_2 = 53;   
+const int out_2 = 52;   
 
 // Variables  sensor 1
 int red1 = 0;  
@@ -147,7 +147,7 @@ void setup() {
 
 }
   void loop() {
-  /*
+  
        enc_vde_1=0;
        enc_vde_2=0;
 //SE APLICAN 10 VECES LAS LECTURAS
@@ -183,7 +183,7 @@ void setup() {
      }
      Serial.println("_______________________________________");
   delay(500);
-  */
+  
  
    
        
@@ -195,9 +195,9 @@ void setup() {
 
 
 if(l2==neg && l4==neg){
-         motor_derecho.setSpeed(250);//210
+         motor_derecho.setSpeed(255);//210
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.setSpeed(255);
        motor_izquierdo.run(FORWARD);
         temp1=-50;
 }
