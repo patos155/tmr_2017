@@ -26,18 +26,18 @@ Color Sensor2 (izquierdo)     Arduino
 */
 //VARIABLES DEL SENSOR DE COLORES 
 // inicializacion de variables para los pins de sensor 1 
-const int s1_0 = 31;  
-const int s1_1 = 33;  
-const int s1_2 = 35;  
-const int s1_3 = 37;  
-const int out_1 = 39;   
+const int s1_0 = 35;  
+const int s1_1 = 37;  
+const int s1_2 = 39;  
+const int s1_3 = 41;  
+const int out_1 = 43;   
 
 // inicializacion de variables para los pins de sensor 2 
 const int s2_0 = 45;  
 const int s2_1 = 47;  
-const int s2_2 = 51;  
-const int s2_3 = 49;  
-const int out_2 = 52;   
+const int s2_2 = 49;  
+const int s2_3 = 51;  
+const int out_2 = 53;   
 
 // Variables  sensor 1
 int red1 = 0;  
@@ -67,21 +67,21 @@ int enc_vde_2=0;
 //VARIABLES SESOR ULTRASONICO
 long distancia;
 long tiempo;
-int trig=41;
-int echo=43;
+int trig=42;
+int echo=40;
 int temp1=0;
 
 //VARIABLES DEL SENSOR INFRARROJO
 //s2
-int izq_1=22;
+int izq_1=44;
 //s3
-int izq_2=24;
+int izq_2=46;
 //s4
-int centro_3=26;
+int centro_3=48;
 //s6
-int der_4=28;
+int der_4=50;
 //s7
-int der_5=30;
+int der_5=52;
 // lectura de sensores
 int l1=1;
 int l2=1;
