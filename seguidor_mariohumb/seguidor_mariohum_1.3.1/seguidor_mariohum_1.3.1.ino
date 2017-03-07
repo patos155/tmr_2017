@@ -8,36 +8,36 @@ Color Sensor1 (derecho)      Arduino
 -----------      --------
  VCC               5V
  GND               GND
- s0                31
- s1                33
- s2                35
- s3                37
- OUT               39
+ s0                53
+ s1                51
+ s2                49
+ s3  '             47
+ OUT               45
                  
 Color Sensor2 (izquierdo)     Arduino
 -----------      --------
  VCC               5V
  GND               GND
- s0                45
- s1                47
- s2                51
- s3                49
- OUT               52
+ s0                52
+ s1                50
+ s2                48
+ s3                46
+ OUT               44
 */
 //VARIABLES DEL SENSOR DE COLORES 
 // inicializacion de variables para los pins de sensor 1 
-const int s1_0 = 31;  
-const int s1_1 = 33;  
-const int s1_2 = 35;  
-const int s1_3 = 37;  
-const int out_1 = 39;   
+const int s1_0 = 53;  
+const int s1_1 = 51;  
+const int s1_2 = 49;  
+const int s1_3 = 47;  
+const int out_1 = 45;   
 
 // inicializacion de variables para los pins de sensor 2 
-const int s2_0 = 45;  
-const int s2_1 = 47;  
-const int s2_2 = 51;  
-const int s2_3 = 49;  
-const int out_2 = 52;   
+const int s2_0 =52;  
+const int s2_1 = 50;  
+const int s2_2 = 48;  
+const int s2_3 = 46;  
+const int out_2 = 44;   
 
 // Variables  sensor 1
 int red1 = 0;  
@@ -51,13 +51,13 @@ int blue2 = 0;
 int des = 10;
 
 // lectura de colores encontrados en sensor 1 derecho
-int ler_vde_1=30;
-int leg_vde_1=30;
-int leb_vde_1=30;
+int ler_vde_1=20;
+int leg_vde_1=20;
+int leb_vde_1=20;
 // lectura de colores encontrados en sensor 2 izquierdo
-int ler_vde_2=30;
-int leg_vde_2=30;
-int leb_vde_2=30;                                                                      
+int ler_vde_2=20;
+int leg_vde_2=20;
+int leb_vde_2=20;                                                                      
 
 // colores encontrados en sensor 1
 int enc_vde_1=0;
@@ -67,21 +67,21 @@ int enc_vde_2=0;
 //VARIABLES SESOR ULTRASONICO
 long distancia;
 long tiempo;
-int trig=41;
-int echo=43;
+int trig=43;
+int echo=41;
 int temp1=0;
 
 //VARIABLES DEL SENSOR INFRARROJO
 //s2
-int izq_1=22;
+int izq_1=30;
 //s3
-int izq_2=24;
+int izq_2=28;
 //s4
 int centro_3=26;
 //s6
-int der_4=28;
+int der_4=24;
 //s7
-int der_5=30;
+int der_5=22;
 // lectura de sensores
 int l1=1;
 int l2=1;
@@ -231,13 +231,13 @@ if((l1==bco && l2==bco && l4==bco && l5==bco)){
 if (l2==neg && l5==bco && l1==bco ){
        motor_derecho.setSpeed(200);//150
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(90);//20
+       motor_izquierdo.setSpeed(120);//20
        motor_izquierdo.run(BACKWARD);
        temp1=-25;
 }
 //LIGERAMENTE DESVIADO A LA DERECHA 
 if (l4==neg && l1==bco && l5==bco ){
-       motor_derecho.setSpeed(90); //20
+       motor_derecho.setSpeed(120); //20
        motor_derecho.run(BACKWARD);
        motor_izquierdo.setSpeed(200); //150
        motor_izquierdo.run(FORWARD);
@@ -248,6 +248,8 @@ if (l4==neg && l1==bco && l5==bco ){
      // INTERSECCION////////////////////////////////////////////////////////////////////////////
  if(l1==neg && l5==neg)
   {
+       enc_vde_1=0;
+       enc_vde_2=0;
        temp1=0;
        motor_derecho.setSpeed(100);
        motor_derecho.run(BACKWARD);
@@ -259,9 +261,7 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(BACKWARD);
        
-       
-       enc_vde_1=0;
-       enc_vde_2=0;
+  
 //SE APLICAN 10 VECES LAS LECTURAS
       color();
       delay(100);
@@ -287,7 +287,7 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_derecho.run(BACKWARD);
        motor_izquierdo.setSpeed(200);
        motor_izquierdo.run(FORWARD);
-       delay(2000);
+       delay(1500);
        temp=0;
        temp1=0;
       } 
@@ -299,7 +299,7 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(20);
        motor_izquierdo.run(BACKWARD);
-       delay(1750);
+       delay(1500);
        temp=0;
          temp1=0;
       }
