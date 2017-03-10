@@ -26,7 +26,6 @@ Color Sensor2 (izquierdo)     Arduino
 */
 //VARIABLES DEL SENSOR DE COLORES 
 // inicializacion de variables para los pins de sensor 1 
-<<<<<<< HEAD
 const int s1_0 = 53;  
 const int s1_1 = 51;  
 const int s1_2 = 49;  
@@ -39,20 +38,6 @@ const int s2_1 = 50;
 const int s2_2 = 48;  
 const int s2_3 = 46;  
 const int out_2 = 44;   
-=======
-const int s1_0 = 35;  
-const int s1_1 = 37;  
-const int s1_2 = 39;  
-const int s1_3 = 41;  
-const int out_1 = 43;   
-
-// inicializacion de variables para los pins de sensor 2 
-const int s2_0 = 45;  
-const int s2_1 = 47;  
-const int s2_2 = 49;  
-const int s2_3 = 51;  
-const int out_2 = 53;   
->>>>>>> 358aaf6ea3699c479f573f41de812ffa1eafa669
 
 // Variables  sensor 1
 int red1 = 0;  
@@ -82,38 +67,21 @@ int enc_vde_2=0;
 //VARIABLES SESOR ULTRASONICO
 long distancia;
 long tiempo;
-<<<<<<< HEAD
 int trig=43;
 int echo=41;
-=======
-int trig=42;
-int echo=40;
->>>>>>> 358aaf6ea3699c479f573f41de812ffa1eafa669
 int temp1=0;
 
 //VARIABLES DEL SENSOR INFRARROJO
 //s2
-<<<<<<< HEAD
 int izq_1=30;
 //s3
 int izq_2=28;
-=======
-int izq_1=44;
-//s3
-int izq_2=46;
->>>>>>> 358aaf6ea3699c479f573f41de812ffa1eafa669
 //s4
-int centro_3=48;
+int centro_3=26;
 //s6
-<<<<<<< HEAD
 int der_4=24;
 //s7
 int der_5=22;
-=======
-int der_4=50;
-//s7
-int der_5=52;
->>>>>>> 358aaf6ea3699c479f573f41de812ffa1eafa669
 // lectura de sensores
 int l1=1;
 int l2=1;
@@ -179,7 +147,7 @@ void setup() {
 
 }
   void loop() {
-  
+  /*
        enc_vde_1=0;
        enc_vde_2=0;
 //SE APLICAN 10 VECES LAS LECTURAS
@@ -215,7 +183,7 @@ void setup() {
      }
      Serial.println("_______________________________________");
   delay(500);
-  
+  */
  
    
        
@@ -280,8 +248,6 @@ if (l4==neg && l1==bco && l5==bco ){
      // INTERSECCION////////////////////////////////////////////////////////////////////////////
  if(l1==neg && l5==neg)
   {
-       enc_vde_1=0;
-       enc_vde_2=0;
        temp1=0;
        motor_derecho.setSpeed(100);
        motor_derecho.run(BACKWARD);
@@ -292,7 +258,8 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(BACKWARD);
-       
+       enc_vde_1=0;
+       enc_vde_2=0;
   
 //SE APLICAN 10 VECES LAS LECTURAS
       color();
@@ -315,11 +282,11 @@ if (l4==neg && l1==bco && l5==bco ){
        temp=temp+1; 
       if(enc_vde_1==1)
       {
-       motor_derecho.setSpeed(20);
-       motor_derecho.run(BACKWARD);
+       motor_derecho.setSpeed(50);
+       motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(200);
        motor_izquierdo.run(FORWARD);
-       delay(1500);
+       delay(1300);
        temp=0;
        temp1=0;
       } 
@@ -329,9 +296,9 @@ if (l4==neg && l1==bco && l5==bco ){
       {
        motor_derecho.setSpeed(200);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(20);
-       motor_izquierdo.run(BACKWARD);
-       delay(1500);
+       motor_izquierdo.setSpeed(50);
+       motor_izquierdo.run(FORWARD);
+       delay(1300);
        temp=0;
          temp1=0;
       }
@@ -409,7 +376,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(2000);
+       delay(2500);
        // SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
@@ -497,7 +464,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(2000);
+       delay(2200);
        // SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
