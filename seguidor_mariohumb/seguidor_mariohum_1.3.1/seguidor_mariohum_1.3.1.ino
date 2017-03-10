@@ -25,14 +25,14 @@ Color Sensor2 (izquierdo)     Arduino
  OUT               44
 */
 //VARIABLES DEL SENSOR DE COLORES 
-// inicializacion de variables para los pins de sensor 1 
-const int s1_0 = 53;  
+// inicializacion de variables para los pins de sensor 1 (derecho)
+const int s1_0 = 39;  
 const int s1_1 = 51;  
 const int s1_2 = 49;  
 const int s1_3 = 47;  
 const int out_1 = 45;   
 
-// inicializacion de variables para los pins de sensor 2 
+// inicializacion de variables para los pins de sensor 2 (izquierdo)
 const int s2_0 =52;  
 const int s2_1 = 50;  
 const int s2_2 = 48;  
@@ -280,6 +280,20 @@ if (l4==neg && l1==bco && l5==bco ){
 
        //sensor RGB de la derecha
        temp=temp+1; 
+
+
+      //ENCUENTRA DOS VERDES 
+       if (enc_vde_1==1 && enc_vde_2==1){
+       motor_derecho.setSpeed(250);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(BACKWARD);
+       delay(2000);
+       enc_vde_1=0;
+       enc_vde_2=0;
+       temp=0;
+      }
+       
       if(enc_vde_1==1)
       {
        motor_derecho.setSpeed(50);
@@ -302,16 +316,18 @@ if (l4==neg && l1==bco && l5==bco ){
        temp=0;
          temp1=0;
       }
-      
-      /*if (enc_vde_1==1 && enc_vde_2==1){
+      //ENCUENTRA DOS VERDES 
+       if (enc_vde_1==1 && enc_vde_2==1){
        motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(BACKWARD);
-       delay(5000);
+       delay(2000);
        temp=0;
+       enc_vde_1=0;
+       enc_vde_2=0;
       }
-      */
+      
       if (temp==8){
         motor_derecho.setSpeed(200);
        motor_derecho.run(FORWARD);
@@ -501,10 +517,7 @@ if(temp1==900){
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
        delay(650);
-   
-  
-   
-      
+       
          temp1=-25;
   }
  if(temp1>1000){
@@ -515,14 +528,6 @@ if(temp1==900){
   temp1=0;
   }
   
-  
-
-
-
-
-
-
-
     
 }
 void color()  
