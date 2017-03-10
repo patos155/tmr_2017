@@ -25,14 +25,14 @@ Color Sensor2 (izquierdo)     Arduino
  OUT               44
 */
 //VARIABLES DEL SENSOR DE COLORES 
-// inicializacion de variables para los pins de sensor 1 
+// inicializacion de variables para los pins de sensor 1 (derecho)
 const int s1_0 = 53;  
 const int s1_1 = 51;  
 const int s1_2 = 49;  
 const int s1_3 = 47;  
 const int out_1 = 45;   
 
-// inicializacion de variables para los pins de sensor 2 
+// inicializacion de variables para los pins de sensor 2 (izquierdo)
 const int s2_0 =52;  
 const int s2_1 = 50;  
 const int s2_2 = 48;  
