@@ -147,7 +147,7 @@ void setup() {
 
 }
   void loop() {
-  
+  /*
        enc_vde_1=0;
        enc_vde_2=0;
 //SE APLICAN 10 VECES LAS LECTURAS
@@ -183,7 +183,7 @@ void setup() {
      }
      Serial.println("_______________________________________");
   delay(500);
-  
+  */
  
    
        
@@ -248,8 +248,6 @@ if (l4==neg && l1==bco && l5==bco ){
      // INTERSECCION////////////////////////////////////////////////////////////////////////////
  if(l1==neg && l5==neg)
   {
-       enc_vde_1=0;
-       enc_vde_2=0;
        temp1=0;
        motor_derecho.setSpeed(100);
        motor_derecho.run(BACKWARD);
@@ -260,7 +258,8 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(0);
        motor_izquierdo.run(BACKWARD);
-       
+       enc_vde_1=0;
+       enc_vde_2=0;
   
 //SE APLICAN 10 VECES LAS LECTURAS
       color();
@@ -283,11 +282,11 @@ if (l4==neg && l1==bco && l5==bco ){
        temp=temp+1; 
       if(enc_vde_1==1)
       {
-       motor_derecho.setSpeed(20);
-       motor_derecho.run(BACKWARD);
+       motor_derecho.setSpeed(50);
+       motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(200);
        motor_izquierdo.run(FORWARD);
-       delay(1500);
+       delay(1300);
        temp=0;
        temp1=0;
       } 
@@ -297,9 +296,9 @@ if (l4==neg && l1==bco && l5==bco ){
       {
        motor_derecho.setSpeed(200);
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(20);
-       motor_izquierdo.run(BACKWARD);
-       delay(1500);
+       motor_izquierdo.setSpeed(50);
+       motor_izquierdo.run(FORWARD);
+       delay(1300);
        temp=0;
          temp1=0;
       }
@@ -377,7 +376,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(2000);
+       delay(2500);
        // SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
@@ -465,7 +464,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(2000);
+       delay(2200);
        // SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
