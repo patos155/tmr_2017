@@ -26,6 +26,7 @@ Color Sensor2 (izquierdo)     Arduino
 */
 //VARIABLES DEL SENSOR DE COLORES 
 // inicializacion de variables para los pins de sensor 1 
+<<<<<<< HEAD
 const int s1_0 = 53;  
 const int s1_1 = 51;  
 const int s1_2 = 49;  
@@ -38,6 +39,20 @@ const int s2_1 = 50;
 const int s2_2 = 48;  
 const int s2_3 = 46;  
 const int out_2 = 44;   
+=======
+const int s1_0 = 35;  
+const int s1_1 = 37;  
+const int s1_2 = 39;  
+const int s1_3 = 41;  
+const int out_1 = 43;   
+
+// inicializacion de variables para los pins de sensor 2 
+const int s2_0 = 45;  
+const int s2_1 = 47;  
+const int s2_2 = 49;  
+const int s2_3 = 51;  
+const int out_2 = 53;   
+>>>>>>> 358aaf6ea3699c479f573f41de812ffa1eafa669
 
 // Variables  sensor 1
 int red1 = 0;  
@@ -67,21 +82,38 @@ int enc_vde_2=0;
 //VARIABLES SESOR ULTRASONICO
 long distancia;
 long tiempo;
+<<<<<<< HEAD
 int trig=43;
 int echo=41;
+=======
+int trig=42;
+int echo=40;
+>>>>>>> 358aaf6ea3699c479f573f41de812ffa1eafa669
 int temp1=0;
 
 //VARIABLES DEL SENSOR INFRARROJO
 //s2
+<<<<<<< HEAD
 int izq_1=30;
 //s3
 int izq_2=28;
+=======
+int izq_1=44;
+//s3
+int izq_2=46;
+>>>>>>> 358aaf6ea3699c479f573f41de812ffa1eafa669
 //s4
-int centro_3=26;
+int centro_3=48;
 //s6
+<<<<<<< HEAD
 int der_4=24;
 //s7
 int der_5=22;
+=======
+int der_4=50;
+//s7
+int der_5=52;
+>>>>>>> 358aaf6ea3699c479f573f41de812ffa1eafa669
 // lectura de sensores
 int l1=1;
 int l2=1;
