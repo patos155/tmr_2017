@@ -1,4 +1,5 @@
 #include <AFMotor.h>
+#include <Servo.h>              // Incluir la librería Servo
 AF_DCMotor motor_derecho(4);   //motor derecho
 AF_DCMotor motor_izquierdo(3);   //motor izquierdo
 // TCS230 color recognition sensor 
@@ -24,6 +25,10 @@ Color Sensor2 (izquierdo)     Arduino
  s3                46
  OUT               44
 */
+
+Servo servo1;                   // Crear un objeto tipo Servo llamado servo1 
+int angulo = 0 ;
+
 //VARIABLES DEL SENSOR DE COLORES 
 // inicializacion de variables para los pins de sensor 1 (derecho)
 const int s1_0 = 39;  
@@ -102,6 +107,9 @@ int temp=0;
 
 void setup() {
   Serial.begin(9600);
+
+ servo1.attach(9) ;
+  
   //SENSORES DE COLORES 
   //Pines s0,s1,s2 y s3 como salidas para el sensor1  
   pinMode(s1_0, OUTPUT);  
@@ -192,7 +200,8 @@ void setup() {
    l3=digitalRead(centro_3);
    l2=digitalRead(der_4);
    l1=digitalRead(der_5);
- 
+   int sensorValue = analogRead(A15);
+  // print out the value you read:
 
 
 if(l2==neg && l4==neg){
@@ -342,6 +351,22 @@ if (l4==neg && l1==bco && l5==bco ){
       
     temp1=0;  
 }
+
+Serial.print("Sensor ");
+Serial.println(sensorValue);
+//delay(500);
+
+if(sensorValue>=38 && sensorValue<=40){
+   Serial.println("plateado");
+   
+   //servo1.write(180);
+   motor_derecho.setSpeed(0);
+   motor_derecho.run(FORWARD);
+   motor_izquierdo.setSpeed(0);
+   motor_izquierdo.run(FORWARD);
+   delay(10000); 
+}
+
   
 if(temp1==900){
   ultra();
