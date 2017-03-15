@@ -263,7 +263,7 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_derecho.run(BACKWARD);
        motor_izquierdo.setSpeed(100);
        motor_izquierdo.run(BACKWARD);
-       delay(700);
+       delay(750);
        motor_derecho.setSpeed(0);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(0);
