@@ -279,7 +279,7 @@ if (l4==neg && l1==bco && l5==bco ){
       delay(100);
       color();
 
-       //sensor RGB de la derecha
+       //sin color verde
        temp=temp+1; 
 
 
@@ -329,7 +329,7 @@ if (l4==neg && l1==bco && l5==bco ){
        enc_vde_2=0;
       }
       
-      if (temp==8){
+      if (temp==5){
         motor_derecho.setSpeed(200);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(200);
