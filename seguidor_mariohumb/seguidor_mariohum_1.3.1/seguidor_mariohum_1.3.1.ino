@@ -48,14 +48,14 @@ int blue1 = 0;
 int red2 = 0;  
 int green2 = 0;   
 int blue2 = 0;  
-int des = 5;
+int des = 4;
 
 // lectura de colores encontrados en sensor 1 derecho
-int ler_vde_1=20;
+int ler_vde_1=30;
 int leg_vde_1=20;
 int leb_vde_1=20;
 // lectura de colores encontrados en sensor 2 izquierdo
-int ler_vde_2=20;
+int ler_vde_2=30;
 int leg_vde_2=20;
 int leb_vde_2=20;                                                                      
 
@@ -95,6 +95,7 @@ int l8=1;
 int neg=0;
 int bco=1;
 int temp=0;
+int tempv=0;
 
 //const int trigPin = 34; // Pin disparador. Se puede usar otro pin digital
 //const int echoPin = 32; // Pin eco. Se puede usar otro pin digital
@@ -285,13 +286,18 @@ if (l4==neg && l1==bco && l5==bco ){
 
       //ENCUENTRA DOS VERDES 
        if (enc_vde_1==1 && enc_vde_2==1){
-       motor_derecho.setSpeed(250);
+      tempv=tempv+1;
+       temp=0;
+      }
+      if(tempv==2){
+         motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(BACKWARD);
        delay(2000);
        enc_vde_1=0;
        enc_vde_2=0;
+       tempv=0;
        temp=0;
       }
        
@@ -304,6 +310,7 @@ if (l4==neg && l1==bco && l5==bco ){
        delay(1300);
        temp=0;
        temp1=0;
+       tempv=0;
       } 
 
 //sensor RGB a la izquierda
@@ -316,6 +323,7 @@ if (l4==neg && l1==bco && l5==bco ){
        delay(1300);
        temp=0;
          temp1=0;
+         tempv=0;
       }
       //ENCUENTRA DOS VERDES 
        if (enc_vde_1==1 && enc_vde_2==1){
@@ -325,6 +333,7 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_izquierdo.run(BACKWARD);
        delay(2000);
        temp=0;
+       tempv=0;
        enc_vde_1=0;
        enc_vde_2=0;
       }
@@ -337,6 +346,7 @@ if (l4==neg && l1==bco && l5==bco ){
        delay(1750);
        temp=0;
         temp1=0;
+        tempv=0;
           
       }
       
