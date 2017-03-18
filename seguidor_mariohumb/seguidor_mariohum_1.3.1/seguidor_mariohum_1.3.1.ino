@@ -48,7 +48,7 @@ int blue1 = 0;
 int red2 = 0;  
 int green2 = 0;   
 int blue2 = 0;  
-int des = 10;
+int des = 5;
 
 // lectura de colores encontrados en sensor 1 derecho
 int ler_vde_1=20;
@@ -417,7 +417,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(1100);
+       delay(700);
        //SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
@@ -505,7 +505,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(1100);
+       delay(700);
        //SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
