@@ -34,7 +34,7 @@ void loop()
   val_d = analogRead(sen_d);//sensor derecho
   val_i_t = analogRead(sen_i_t);//sensor izquierdo trasero
   val_d_t = analogRead(sen_d_t);// sensor derecho trasero
- Serial.println("Sensor_centro");
+/* Serial.println("Sensor_centro");
  Serial.println(val_c);   
  Serial.println("Sensor_izquierdo");
  Serial.println(val_i);
@@ -43,7 +43,7 @@ void loop()
  Serial.println("Sensor_izquierdo_trasero");
  Serial.println(val_i_t);
  Serial.println("Sensor_derecho_trasero");
- Serial.println(val_d_t);
+ Serial.println(val_d_t);*/
    //centro no detecta la pelota
    if(val_c<920){
     motori.setSpeed(0);
@@ -98,5 +98,5 @@ void loop()
     motort.run(BACKWARD);
    }
   
-           delay(1000); 
+  //         delay(1000); 
 }
