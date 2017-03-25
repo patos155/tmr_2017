@@ -1,5 +1,3 @@
-// TCS230 color recognition sensor 
-// Sensor connection pins to Arduino are shown in comments
 /*
 Color Sensor1      Arduino delantero derecho
 -----------      --------
@@ -22,38 +20,38 @@ Color Sensor2      Arduino trasero izquierdo
  OUT               30(10)
  OE                GND
  */
- #include <AFMotor.h>
+#include <AFMotor.h>
 AF_DCMotor motori(1);
 AF_DCMotor motord(3);
 AF_DCMotor motort(4);
-//////////////////////////////////////////////////////////////////////////
-//INRARROJOS
-const int sen_c = A14;//sensor centro 
-const int sen_i = A13;//sensor izquierdo
-const int sen_d = A15;//sensor derecho
-const int sen_d_t = A11;//sensor derecho trasero
-const int sen_i_t = A10;//sensor izquierdo trasero
-int val_c = 0; 
-int val_i = 0;
-int val_d = 0;
-int val_i_t = 0;
-int val_d_t = 0;
-/////////////////////////////////////////////////////////////////////////
-
+//////////////////////////////////////////////////////////////////
+//VARIABLE DE GIRO
+int giro=1;
+/////////////////////////////////////////////////////////////////
+//DECLARACION DE PINES ANALOGICOS
+int s0=A13;//izquierdo
+int s1=A14;//centro
+int s2=A15;//derecho
+/////////////////////////////////////////////////////////////////
+//VALOR QUE TOMA DE LOS PINES
+int val_c=0;
+int val_i=0;
+int val_d=0;
+///////////////////////////////////////////////////////////////////
 //RGB
 // inicializacion de variables para los pins de sensor 1 delantero derecho
 const int s1_0 = 46;  
 const int s1_1 = 48;  
 const int s1_2 = 50;  
 const int s1_3 = 52;  
-const int out_1 =44;   
+const int out_1 =44; 
 
 // inicializacion de variables para los pins de sensor 2 trasero izquierdo
 const int s2_0 = 22;  
 const int s2_1 = 24;  
 const int s2_2 = 26;  
 const int s2_3 = 28;  
-const int out_2 = 30;   
+const int out_2 = 30; 
 
 // Variables  sensor 1 delantero
 int red1 = 0;  
@@ -75,9 +73,6 @@ int ler_ngo_1=32;
 int leg_ngo_1=23;
 int leb_ngo_1=24;
 
-int ler_vde_1=52;
-int leg_vde_1=40;
-int leb_vde_1=43;
 // lectura de colores encontrados en sensor 2 trasero
 int ler_bco_2=4;
 int leg_bco_2=5;
@@ -87,29 +82,24 @@ int ler_ngo_2=10;
 int leg_ngo_2=10;
 int leb_ngo_2=10;
 
-int ler_vde_2=25;
-int leg_vde_2=24;
-int leb_vde_2=23;
+
 // colores encontrados en sensor 1 delantero
 int enc_bco_1=0;
 int enc_ngo_1=0;
-int enc_vde_1=0;
+
 // colores encontrados en sensor 2 trasero
 int enc_bco_2=0;
 int enc_ngo_2=0;
-int enc_vde_2=0;
 
-void setup()   
-{  
-  //velocidad del puerto serie
+
+void setup() {
+ //velocidad del puerto serie
   Serial.begin(9600); 
   ////////////////////////////////////////////////////////////////////////////////
   //infrarrojos
- pinMode(sen_c,INPUT);
- pinMode(sen_i,INPUT);
- pinMode(sen_d,INPUT);
- pinMode(sen_i_t,INPUT);
- pinMode(sen_d_t,INPUT);
+ pinMode(s0,INPUT);
+ pinMode(s1,INPUT);
+ pinMode(s2,INPUT);
   ////////////////////////////////////////////////////////////////////////////////
   //RGB
   //Pines s0,s1,s2 y s3 como salidas para el sensor1  delantero
@@ -117,117 +107,83 @@ void setup()
   pinMode(s1_1, OUTPUT);  
   pinMode(s1_2, OUTPUT);  
   pinMode(s1_3, OUTPUT);
-  
   //Pines s0,s1,s2 y s3 como salidas para el sensor2  trasero
   pinMode(s2_0, OUTPUT);  
   pinMode(s2_1, OUTPUT);  
   pinMode(s2_2, OUTPUT);  
   pinMode(s2_3, OUTPUT);
-  
   // pin OUT_1 como entrada para el sensor 1  delantero
   pinMode(out_1, INPUT);
-  
   // pin OUTT_2 como entrada para el sensor 2 trasero
   pinMode(out_2, INPUT);  
-  
   // S0 y S1 en alto color base rojo para sensor 1  delantero
   digitalWrite(s1_0, HIGH);  
   digitalWrite(s1_1, HIGH);
   // S0 y S1 en alto color base rojo para sensor 2  trasero
   digitalWrite(s2_0, HIGH);  
   digitalWrite(s2_1, HIGH);  
-}  
-    
-void loop(){
-  /////////////////////////////////////////////////////////////////
-  val_c = analogRead(sen_c);//sensor centro
-  val_i = analogRead(sen_i);//sensor izquierdo
-  val_d = analogRead(sen_d);//sensor derecho
-  val_i_t = analogRead(sen_i_t);//sensor izquierdo trasero
-  val_d_t = analogRead(sen_d_t);// sensor derecho trasero
-  ////////////////////////////////////////////////////////////////
-/*Serial.println("Sensor_centro");
- Serial.println(val_c);   
+
+}
+
+void loop() {
+ val_i=analogRead(s0);//izquierda
+ val_c=analogRead(s1);//centro
+ val_d=analogRead(s2);//derecha
+/*
  Serial.println("Sensor_izquierdo");
  Serial.println(val_i);
+ Serial.println("Sensor_centro");
+ Serial.println(val_c);
  Serial.println("Sensor_derecho");
- Serial.println(val_d);
- Serial.println("Sensor_izquierdo_trasero");
- Serial.println(val_i_t);
- Serial.println("Sensor_derecho_trasero");
- Serial.println(val_d_t);*/
-
-
-    // color en sensor 1 
-    enc_bco_1=0;
-    enc_ngo_1=0;
-    enc_vde_1=0;
-    // color en sensor 2
-    enc_bco_2=0;
-    enc_ngo_2=0;
-    enc_vde_2=0;
-  
-  // determina el tiempo de lectura para cada color (rojo, azul, verde)
-  color(); 
-  //Color verde en cualquier sensor RGB
-  if(enc_vde_1==1 || enc_vde_2==1){
-   //centro no detecta la pelota
-   if(val_c<920){
-    motori.setSpeed(0);
-    motori.run(BACKWARD);
-    motord.setSpeed(0);
+ Serial.println(val_d);*/
+ color();
+//SENSOR DERECHO DETECTA LA PELOTA
+ if (val_d>920){
+     giro=1;
+ }//SENSOR CENTRO DETECTA LA PELOTA
+ if (val_i>920){
+     giro=0;
+ }//SENSOR DERECHO DETECTA LA PELOTA
+ if (val_d>920){
+     giro=2;
+ }
+ if(val_i<920 && val_c<920 && val_d<920){
+    motori.setSpeed(250);
+    motori.run(FORWARD);
+    motord.setSpeed(250);
     motord.run(BACKWARD);
-    motort.setSpeed(0);
-    motort.run(RELEASE);
-   }
-   //centro detecat la pelota
-   if(val_i<920 && val_c>=920 && val_d<920 && val_i_t<920 && val_d_t<920){
+    motort.setSpeed(250);
+    motort.run(FORWARD);
+ }
+ //AVANZA
+ if (val_c>=920){
     motori.setSpeed(250);
     motori.run(FORWARD);
     motord.setSpeed(250);
     motord.run(FORWARD);
-    motort.setSpeed(0);
+    motort.setSpeed(250);
     motort.run(RELEASE);
-   }//IZQUIEROD DETECTA LA PELOTA
-   if(val_i>=920 && val_c<920 && val_d<920 && val_i_t<920 && val_d_t<920){
+ }//GIRO A LA DERECHA
+ if (val_d>=920){
     motori.setSpeed(250);
     motori.run(BACKWARD);
-    motord.setSpeed(0);
-    motord.run(RELEASE);
-    motort.setSpeed(100);
-    motort.run(BACKWARD);
-    delay(190);
-   }//DERECHO DETECTA LA PELOTA
-   if(val_i<920 && val_c<920 && val_d>=920 && val_i_t<920 && val_d_t<920){
+    motord.setSpeed(250);
+    motord.run(FORWARD);
+    motort.setSpeed(250);
+    motort.run(FORWARD);
+ }//GIRO A LA IZQUIERDA
+ if (val_i>=920){
     motori.setSpeed(250);
     motori.run(FORWARD);
     motord.setSpeed(250);
     motord.run(BACKWARD);
-    motort.setSpeed(100);
-    motort.run(FORWARD);
-    delay(185);
-   }//IZQUIERDO TRASERO DETECTA LA PELOTA
-   if(val_i<920 && val_c<920 && val_d<920 && val_i_t>=920 && val_d_t<920){
-    motori.setSpeed(0);
-    motori.run(RELEASE);
-    motord.setSpeed(0);
-    motord.run(RELEASE);
     motort.setSpeed(250);
-    motort.run(FORWARD);
-   }//DERECHO TRASERO DETECTA LA PELOTA
-   if(val_i<920 && val_c<920 && val_d && val_i_t<920 && val_d_t>=920){
-    motori.setSpeed(200);
+    motort.run(BACKWARD);
+ }//DELANTERO DETECTA BLANCO
+ /*if(enc_bco_1==1){
+    motori.setSpeed(250);
     motori.run(BACKWARD);
     motord.setSpeed(250);
-    motord.run(BACKWARD);
-    motort.setSpeed(250);
-    motort.run(FORWARD);
-   }
-  }//delnatero RGB detecta blanco
-   if(enc_bco_1==1){
-    motori.setSpeed(200);
-    motori.run(BACKWARD);
-    motord.setSpeed(200);
     motord.run(BACKWARD);
     motort.setSpeed(250);
     motort.run(BACKWARD);
@@ -241,13 +197,13 @@ void loop(){
     motort.run(FORWARD);
    }//delantero RGB detecta negro
    if(enc_ngo_1==1){
-    motori.setSpeed(200);
+    motori.setSpeed(250);
     motori.run(BACKWARD);
-    motord.setSpeed(200);
+    motord.setSpeed(250);
     motord.run(BACKWARD);
     motort.setSpeed(250);
     motort.run(BACKWARD);
-   }trasero RGB detecta negro
+   }//trasero RGB detecta negro
    if(enc_ngo_2==1){
     motori.setSpeed(250);
     motori.run(FORWARD);
@@ -255,13 +211,10 @@ void loop(){
     motord.run(FORWARD);
     motort.setSpeed(250);
     motort.run(FORWARD);
-   }
-  //  delay(1000);
-}  
+   }*/
+   //delay(1500);  
+}
 
-
-
-// Lectura de colores rojo,azul y verde
 void color()  
 {   
 
@@ -317,10 +270,7 @@ void color()
      {  
        Serial.println(" -    NEGRO sensor_delantero ");  
      }
-  if (enc_vde_1==1)
-     {  
-       Serial.println(" -    VERDE sensor _delantero ");  
-     }
+  
 // muestra la intensidad (los milisegunods que tardo en la lectura para el rojo
   Serial.print("R2 Intensity:");  
   Serial.println(red2, DEC);  
@@ -341,38 +291,27 @@ void color()
      {  
        Serial.println(" -    NEGRO sensor_trasero ");  
      }
-  if (enc_vde_2==1)
-     {  
-       Serial.println(" -    VERDE sensor_trasero ");  
-     }
-*/
-    
+  
+  */  
     // colores en sensor 1
     if ((red1>=ler_bco_1-des && red1<=ler_bco_1+des) && (green1>=leg_bco_1-des && green1<=leg_bco_1+des) && (blue1>=leb_bco_1-des && blue1<=leb_bco_1+des)){
         enc_bco_1=1;  
-      //Serial.println("Blanco_sensor_delantero");
+    //Serial.println("Blanco_sensor_delantero");
       }
     if ((red1>=ler_ngo_1-des && red1<=ler_ngo_1+des) && (green1>=leg_ngo_1-des && green1<=leg_ngo_1+des) && (blue1>=leb_ngo_1-des && blue1<=leb_ngo_1+des)){
         enc_ngo_1=1;  
       //Serial.println("Negro_sensor_delantero");
       }
-   if ((red1>=ler_vde_1-des && red1<=ler_vde_1+des) && (green1>=leg_vde_1-des && green1<=leg_vde_1+des) && (blue1>=leb_vde_1-des && blue1<=leb_vde_1+des)){
-        enc_vde_1=1;  
-      //Serial.println("Verde_sensor_delantero");
-      }
-    // colores en sensor 2
+   
+      
+  // colores en sensor 2
     if ((red2>=ler_bco_2-des && red2<=ler_bco_2+des) && (green2>=leg_bco_2-des && green2<=leg_bco_2+des) && (blue2>=leb_bco_2-des && blue2<=leb_bco_2+des)){
         enc_bco_2=1;  
         //Serial.println("Blanco_sensor_trasero");
       }
-    if ((red2>=ler_ngo_2-des && red2<=ler_ngo_2+des) && (green2>=leg_ngo_2-des && green2<=leg_ngo_2+des) && (blue2>=leb_ngo_2-des && blue2<=leb_ngo_2+des)){
+   if ((red2>=ler_ngo_2-des && red2<=ler_ngo_2+des) && (green2>=leg_ngo_2-des && green2<=leg_ngo_2+des) && (blue2>=leb_ngo_2-des && blue2<=leb_ngo_2+des)){
         enc_ngo_2=1;  
-      // Serial.println("Negro_sensor_trasero");
+          //Serial.println("Negro_sensor_trasero");
       }
-   if ((red2>=ler_vde_2-des && red2<=ler_vde_2+des) && (green2>=leg_vde_2-des && green2<=leg_vde_2+des) && (blue2>=leb_vde_2-des && blue2<=leb_vde_2+des)){
-        enc_vde_2=1;  
-       // Serial.println("Verde_sensor_trasero");
-      }
-
-      
+   
 }
