@@ -184,7 +184,7 @@ void setup() {
      }
      Serial.println("_______________________________________");
   delay(500);
-  */
+ */ 
  
    
        
@@ -284,23 +284,18 @@ if (l4==neg && l1==bco && l5==bco ){
        temp=temp+1; 
 
 
-      //ENCUENTRA DOS VERDES 
+        //ENCUENTRA DOS VERDES 
        if (enc_vde_1==1 && enc_vde_2==1){
-      tempv=tempv+1;
-       temp=0;
-      }
-      if(tempv==2){
-         motor_derecho.setSpeed(250);
+       motor_derecho.setSpeed(250);
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(BACKWARD);
        delay(2000);
+       temp=0;
+       tempv=0;
        enc_vde_1=0;
        enc_vde_2=0;
-       tempv=0;
-       temp=0;
       }
-       
       if(enc_vde_1==1)
       {
        motor_derecho.setSpeed(50);
