@@ -245,7 +245,31 @@ if (l4==neg && l1==bco && l5==bco ){
        motor_izquierdo.run(FORWARD);
        temp1=-25;
      }
-
+//curvas de 90º
+if (l5==neg && l4==neg || l3==neg && l5==neg && l4==neg){
+       motor_derecho.setSpeed(50);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(200);
+       motor_izquierdo.run(FORWARD);
+       
+        motor_derecho.setSpeed(250);
+       motor_derecho.run(BACKWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(BACKWARD);
+       
+}
+if (l1==neg && l2==neg || l3==neg && l1==neg && l2==neg){
+       motor_derecho.setSpeed(200);
+       motor_derecho.run(FORWARD);
+       motor_izquierdo.setSpeed(50);
+       motor_izquierdo.run(FORWARD);
+      
+        motor_derecho.setSpeed(250);
+       motor_derecho.run(BACKWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(BACKWARD);
+      
+}
       
      // INTERSECCION////////////////////////////////////////////////////////////////////////////
  if(l1==neg && l5==neg)

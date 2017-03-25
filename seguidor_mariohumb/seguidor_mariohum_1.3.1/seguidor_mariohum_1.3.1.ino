@@ -231,17 +231,17 @@ if((l1==bco && l2==bco && l4==bco && l5==bco)){
 }
    //LIGERAMENTE DESVIADO A LA IZQUIERDA 
 if (l2==neg && l5==bco && l1==bco ){
-       motor_derecho.setSpeed(200);//150
+       motor_derecho.setSpeed(250);//150
        motor_derecho.run(FORWARD);
-       motor_izquierdo.setSpeed(120);//20
+       motor_izquierdo.setSpeed(150);//20
        motor_izquierdo.run(BACKWARD);
        temp1=-25;
 }
 //LIGERAMENTE DESVIADO A LA DERECHA 
 if (l4==neg && l1==bco && l5==bco ){
-       motor_derecho.setSpeed(120); //20
+       motor_derecho.setSpeed(150); //20
        motor_derecho.run(BACKWARD);
-       motor_izquierdo.setSpeed(200); //150
+       motor_izquierdo.setSpeed(250); //150
        motor_izquierdo.run(FORWARD);
        temp1=-25;
      }
@@ -351,6 +351,18 @@ if (l4==neg && l1==bco && l5==bco ){
 if(temp1==900){
   ultra();
  if(distancia<=8 && distancia>5){
+      //retro
+       motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+       motor_derecho.setSpeed(250);
+       motor_derecho.run(BACKWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(BACKWARD);
+       delay(500);
+   
        //SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
@@ -374,7 +386,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(1500);
+       delay(1650);
        //SE DETIENE 
         motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
@@ -398,7 +410,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(2500);
+       delay(2600);
        // SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
@@ -422,7 +434,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(700);
+       delay(800);
        //SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
@@ -439,6 +451,19 @@ if(temp1==900){
          temp1=-25;
   }
   if(distancia<=5 && distancia!=0){
+    //retro
+     motor_derecho.setSpeed(0);
+       motor_derecho.run(RELEASE);
+       motor_izquierdo.setSpeed(0);
+       motor_izquierdo.run(RELEASE);
+       delay(100);
+       motor_derecho.setSpeed(250);
+       motor_derecho.run(BACKWARD);
+       motor_izquierdo.setSpeed(250);
+       motor_izquierdo.run(BACKWARD);
+       delay(500);
+   
+    
         //SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
@@ -462,7 +487,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(1500);
+       delay(1600);
        //SE DETIENE 
         motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
@@ -510,7 +535,7 @@ if(temp1==900){
        motor_derecho.run(FORWARD);
        motor_izquierdo.setSpeed(250);
        motor_izquierdo.run(FORWARD);
-       delay(700);
+       delay(800);
        //SE DETIENE 
        motor_derecho.setSpeed(0);
        motor_derecho.run(RELEASE);
