@@ -141,44 +141,45 @@ void loop() {
  if (val_d>920){
      giro=1;
  }//SENSOR CENTRO DETECTA LA PELOTA
- if (val_i>920){
+ if (val_c>920){
      giro=0;
  }//SENSOR DERECHO DETECTA LA PELOTA
- if (val_d>920){
+ if (val_i>920){
      giro=2;
  }
- if(val_i<920 && val_c<920 && val_d<920){
-    motori.setSpeed(250);
-    motori.run(FORWARD);
-    motord.setSpeed(250);
-    motord.run(BACKWARD);
-    motort.setSpeed(250);
-    motort.run(FORWARD);
- }
+
  //AVANZA
- if (val_c>=920){
+ if (giro==0){
     motori.setSpeed(250);
     motori.run(FORWARD);
     motord.setSpeed(250);
     motord.run(FORWARD);
-    motort.setSpeed(250);
+    motort.setSpeed(80);
     motort.run(RELEASE);
  }//GIRO A LA DERECHA
- if (val_d>=920){
-    motori.setSpeed(250);
-    motori.run(BACKWARD);
-    motord.setSpeed(250);
-    motord.run(FORWARD);
-    motort.setSpeed(250);
-    motort.run(FORWARD);
- }//GIRO A LA IZQUIERDA
- if (val_i>=920){
-    motori.setSpeed(250);
+ if (giro==1){
+   
+    motori.setSpeed(100);
     motori.run(FORWARD);
-    motord.setSpeed(250);
+    motord.setSpeed(100);
     motord.run(BACKWARD);
-    motort.setSpeed(250);
+    motort.setSpeed(100);
     motort.run(BACKWARD);
+    delay(200);
+    
+ }//GIRO A LA IZQUIERDA
+ if (giro==2){
+   
+    motori.setSpeed(120);
+    motori.run(FORWARD);
+    motord.setSpeed(120);
+    motord.run(BACKWARD);
+    motort.setSpeed(120);
+    motort.run(BACKWARD);
+
+
+    
+    
  }//DELANTERO DETECTA BLANCO
  /*if(enc_bco_1==1){
     motori.setSpeed(250);
