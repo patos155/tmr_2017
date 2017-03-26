@@ -21,8 +21,8 @@ AF_DCMotor motord_T(3);   //motor izquierdo
        const int trigPin_D = 46;
        const int echoPin_D = 48;
      //Derecho
-       const int trigPin_R = 23;
-       const int echoPin_R = 25;
+       const int trigPin_R = 24;
+       const int echoPin_R = 27;
      //Izquierdo
        const int trigPin_L= 26; // Pin disparador. Se puede usar otro pin digital
        const int echoPin_L= 28; // Pin eco. Se puede usar otro pin digital
@@ -35,7 +35,7 @@ AF_DCMotor motord_T(3);   //motor izquierdo
        int der_6=43;  //s6
        int der_7=45;  //s7
        int der_8=47;  //s8
-       int s_inclina=24;  // sensor de inclinación
+       int s_inclina=30;  // sensor de inclinación
    //variables de medicion de sensores
    //Sensores ultrasonicos 
        long duration;
@@ -57,6 +57,8 @@ AF_DCMotor motord_T(3);   //motor izquierdo
    //led de victima
        int vic=22;
        int inclina=1;
+       int mot_kit=36;
+       
 //Variables de control
     // distancia para encontrar las paredes (centimetros)
        int d_enc=30; 
@@ -78,9 +80,9 @@ AF_DCMotor motord_T(3);   //motor izquierdo
        String desvio="C";
     // espara para los giros
        int t_giro=2300;      //tiempo para los giros de 90°
-       int t_u=5050;
-       int ine=500;         //
-       int esp_giro=2300;    //avanza despues de girar 180°
+       int t_u=4700;
+       int ine=800;         //
+       int esp_giro=2100;    //avanza despues de girar 180°
        //int t_giro_u=3500;   // tiempo para giros de 180°
        int tr=40;           // tiempo de retorno a la recta 
        int giro=0;  
@@ -96,6 +98,8 @@ void setup() {
    Serial.begin(9600); 
    mlx.begin(); 
    pinMode(vic,OUTPUT);
+   pinMode(mot_kit,OUTPUT);
+   
    // Sensor ultrasonico Delantero
       pinMode(trigPin_D, OUTPUT); // Establece pin como salida
       pinMode(echoPin_D, INPUT); // Establece pin como entrada
@@ -160,7 +164,7 @@ void regresa(){
    motord_T.setSpeed(100);//velocidad de motor derecho
    motord_T.run(BACKWARD);//polaridad de motor  derecho
    //Serial.println("____regresa____________________");
-   delay(900);
+   delay(2000);
 }
 
 
@@ -178,6 +182,7 @@ void loop() {
    File dataFile = SD.open("valores.txt", FILE_WRITE);
    // ponemos a bajo el led de Victima
    digitalWrite(vic,LOW);
+   digitalWrite(mot_kit,LOW);
    //lectura de datos de temperatura
    temp1=mlx.readAmbientTempC();
    temp2=mlx.readObjectTempC();
@@ -192,17 +197,30 @@ void loop() {
    if (dif_temp>3){
        digitalWrite(vic,HIGH);
        alto();
-        delay(3000);
-        digitalWrite(vic,LOW);
-           motori_D.setSpeed(ade_ordi); 
-           motori_D.run(FORWARD);       
-           motord_D.setSpeed(ade_ordd);  
-           motord_D.run(FORWARD);        
-           motori_T.setSpeed(ade_ordi);  
-           motori_T.run(FORWARD);        
-           motord_T.setSpeed(ade_ordd);  
-           motord_T.run(FORWARD);      
-           delay(1000);
+       delay(3000);
+       //ARROJA EL KIT DE RESCATE 
+       digitalWrite(mot_kit,HIGH);
+       delay(100);
+       digitalWrite(mot_kit,LOW);
+       delay(50);
+       digitalWrite(mot_kit,HIGH);
+       delay(100);
+       digitalWrite(mot_kit,LOW);
+       delay(50);
+       digitalWrite(mot_kit,HIGH);
+       delay(100);
+       digitalWrite(mot_kit,LOW);
+       delay(50);
+       digitalWrite(vic,LOW);
+       motori_D.setSpeed(ade_ordi); 
+       motori_D.run(FORWARD);       
+       motord_D.setSpeed(ade_ordd);  
+       motord_D.run(FORWARD);        
+       motori_T.setSpeed(ade_ordi);  
+       motori_T.run(FORWARD);        
+       motord_T.setSpeed(ade_ordd);  
+       motord_T.run(FORWARD);      
+       delay(1000);
        digitalWrite(vic,LOW);
   }
 
@@ -231,14 +249,13 @@ void loop() {
    // sensor de inclinación
    inclina=digitalRead(s_inclina);
 
-   dataFile.print("    inc->");
-   dataFile.print(inclina);
-   dataFile.print(", ");
-
-
-      
    if (dataFile){
+      
       dataFile.print(millis());
+      dataFile.print("    inc->");
+      dataFile.print(inclina);
+      dataFile.print(", ");
+
       dataFile.print("    cm_D->");
       dataFile.print(cm_D);
       dataFile.print("-");
@@ -267,20 +284,19 @@ void loop() {
       dataFile.println("  ºC");
 
    }
+
+
+
+if (inclina==1){
+//--------------------------------------------------------------------------------------------------------------------------------------
+// si el robot no esta inclinado
+//--------------------------------------------------------------------------------------------------------------------------------------
+   
    // si encuentra negro
    if (l4==1 && l5==1){  
           dataFile.print("--------piso negro-------");
-
-             motori_D.setSpeed(100);//velocidad de motor izquierdo
-             motori_D.run(BACKWARD); //polaridad de motor izquierdo
-             motord_D.setSpeed(100);//velocidad de motor derecho
-             motord_D.run(BACKWARD);//polaridad de motor  derecho
-             motori_T.setSpeed(100);//velocidad de motor izquierdo
-             motori_T.run(BACKWARD); //polaridad de motor izquierdo
-             motord_T.setSpeed(100);//velocidad de motor derecho
-             motord_T.run(BACKWARD);//polaridad de motor  derecho
-             delay(1000);
-             //regresa();
+             alto();
+             regresa();
              // GIRO HACIA LA DERECHA
              motori_D.setSpeed(ade_ordi);
              motori_D.run(FORWARD); 
@@ -311,7 +327,7 @@ void loop() {
    //          |0       0|          |0         1
    //          |         |          |           |
    if (((adelante==1) && (izquierda==0) && (derecha==0)) || ((adelante==1) && (izquierda==0) && (derecha==1))){
-       if ((cm_L>=4 && cm_L<=7) || (inclina==0)){
+       if ((cm_L>=4 && cm_L<=7)){
            motori_D.setSpeed(ade_ordi); 
            motori_D.run(FORWARD);       
            motord_D.setSpeed(ade_ordd);  
@@ -324,7 +340,7 @@ void loop() {
            dataFile.print("   ----avanza ---derecho -(1)");
         }
         //algoritmo para centrar
-        if(cm_L<4 && inclina==1){ 
+        if(cm_L<4){ 
            dataFile.print("   cm_L<7   ");
            // GIRA A LA DERECHA
            motori_D.setSpeed(ade_ordi);
@@ -371,7 +387,7 @@ void loop() {
            //alto();
            //delay(500);
         }
-        if(cm_L>7 && inclina==1){
+        if(cm_L>7){
            dataFile.print("   cm_L>6");
            //GIRA IZQUIERDA
            motori_D.setSpeed(ade_ordi);
@@ -382,7 +398,7 @@ void loop() {
            motori_T.run(BACKWARD); 
            motord_T.setSpeed(ade_ordd);
            motord_T.run(FORWARD);
-           delay(300);
+           delay(350);
            //avanza
            motori_D.setSpeed(ade_ordi); 
            motori_D.run(FORWARD);       
@@ -692,10 +708,22 @@ void loop() {
         }
     }
    }
+}else {
+   motori_D.setSpeed(ade_ordi); 
+   motori_D.run(FORWARD);       
+   motord_D.setSpeed(ade_ordd);  
+   motord_D.run(FORWARD);        
+   motori_T.setSpeed(ade_ordi);  
+   motori_T.run(FORWARD);        
+   motord_T.setSpeed(ade_ordd);  
+   motord_T.run(FORWARD);        
+   desvio="C";
+   dataFile.print("   ----subida---");
+}
       
-    dataFile.print("   ul_giro->");
-    dataFile.println(ul_giro);        
-    dataFile.close();
+dataFile.print("   ul_giro->");
+dataFile.println(ul_giro);        
+dataFile.close();
 }
    
 
