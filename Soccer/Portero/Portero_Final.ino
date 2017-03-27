@@ -14,19 +14,17 @@ int p_inf=19;
 
 //////RECEPTORES
 const int sd_ext=A11;     //Se declara el pin del sensor infrarrojo derecho exterior(lateral)
-//const int sd_int=A12;     //Sensor Infrarrojo derecho interior
 const int centro=A13;     //Sensor Infrarrojo Centro 
 const int si_int=A15;     //Sensor Infrarrojo izquierdo interior
 const int si_ext=A14;     //Sensor Infrarrojo izquiero exterior(lateral)
 int ls1=0;    //sensor Infrarrojo derecho exterior
 int ls2=0;    //Sensor Infrarrojo derecha interior
 int ls3=0;    //Sensor infrarrojo centro 
-//int ls4=0;    //Sensor Infrarrojo izquierdo interior
 int ls5=0;    //Sensor Infrarrojo izquierdo exterior
 
 void setup() {
   Serial.begin(9600);
-/////ULTASÖNICOS  
+/////ULTRASÖNICOS  
   pinMode(trigPin_D, OUTPUT);
   pinMode(echoPin_D, INPUT);
   digitalWrite(trigPin_D, LOW);
@@ -36,7 +34,6 @@ void setup() {
   
 /////RECEPTORES
   pinMode(sd_ext,INPUT);//Declara las variables como entrada 
-  //pinMode(sd_int,INPUT);
   pinMode(centro,INPUT);
   pinMode(si_int,INPUT);
   pinMode(si_ext,INPUT);  
@@ -45,7 +42,6 @@ void setup() {
 
 void loop() {
   ls5=analogRead(sd_ext);
-  //ls4=analogRead(sd_int);
   ls3=analogRead(centro);
   ls2=analogRead(si_int);
   ls1=analogRead(si_ext);
